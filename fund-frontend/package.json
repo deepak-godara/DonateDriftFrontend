@@ -45,6 +45,11 @@
     ]
   },
   "devDependencies": {
+    "@types/draftjs-to-html": "^0.8.4",
+    "@types/react-draft-wysiwyg": "^1.13.8",
+    "draftjs-to-html": "^0.9.1",
+    "html-to-draftjs": "^1.5.0",
+    "react-draft-wysiwyg": "^1.15.0",
     "react-icons": "^5.0.1"
   }
 }

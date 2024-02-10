@@ -1,0 +1,125 @@
+.editor-class{
+    width:100%;
+    min-height:10rem;
+    padding:0.5rem;
+    scrollbar-width: 0px;
+    
+    border-top: none;
+}
+.toolbar-class{
+    width:100%;
+    /* margin-top:0.2rem; */
+    border:none;
+    border-radius: 12px 12px 0px 0px;
+    background-color: #f5f6f7;
+    box-sizing: border-box;
+    display:flex;
+    flex-direction: row;
+    column-gap:0.4rem;
+    border-bottom:1px solid #eaebee;
+    /* margin:0.2rem 0.2rem; */
+}
+.wrapper-class{
+    border:1px solid #eaebee;
+    width:100%;
+    border-radius:12px;
+}
+.editor-class::-webkit-scrollbar{
+    width:0px;
+}
+.svg-class{
+    height:12px;
+    width:12px;
+    margin:0;
+    min-width:0px;
+    border:none;
+    box-shadow: none;
+}
+.svg-class img{
+    height: 100%;
+    width:100%;
+}
+.fonttag{
+    position: relative;
+    width:1.5rem;
+    border:none;
+    background: none;
+}
+.rdw-fontsize-dropdown{
+    min-width:10px;
+} 
+.rdw-option-wrapper{
+    border:none;
+    height:12px ;
+    width:10px;
+    min-width:15px;
+    background: none;
+}
+.rdw-option-wrapper img{
+    height: 100%;
+    width:100%;
+}
+.fonttag2{
+    position: relative;
+    width: fit-content;
+    max-width:3rem;
+    border:none;
+    background: none;
+}
+.dropdown2{
+    position: absolute;
+  
+    top:2.5rem;
+    left:-1rem;
+    width:8rem;
+    max-height:10rem;
+    padding:0.3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    row-gap:0.5rem;
+}
+.rdw-dropdown-carettoopen
+{
+    display: none;
+}
+.rdw-dropdown-carettoclose{
+    display: none;
+}
+.dropdown{
+    position: absolute;
+    top:2.5rem;
+    left:-1rem;
+    width:6rem;
+    max-height:10rem;
+    padding:0.3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    row-gap:0.5rem;
+}
+.dropdown::-webkit-scrollbar{
+    width:0;
+}
+.dropdown2::-webkit-scrollbar{
+    width:0;
+}
+.list-container{
+    display:flex;
+    flex-direction: row;
+    justify-content:flex-start;
+    column-gap:0.4rem;
+}
+.list-item{
+    border:none;
+    box-shadow: none;
+    height:12px;
+    width:12px;
+    color:grey;
+}
+.list-item{
+    color:grey;
+}
+.public-DraftStyleDefault-block{
+    margin:0.2rem 0rem;
+}
