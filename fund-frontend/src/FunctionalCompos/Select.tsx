@@ -21,10 +21,13 @@ const SelectLabel = styled.label`
   font-size: 18px;
   font-weight: 600;
 `;
-const SelectButton = styled.button`
+interface InputColot{
+  $valid:boolean
+}
+const SelectButton = styled.button<InputColot>`
   width: 100%;
   position: relative;
-  border: 1px solid #eaebee;
+  border:${(props) => (props.$valid?"1px solid #eaebee":"1px solid red")};
   padding: 0.5rem;
   font-size: 16px;
   line-height: 170%;
@@ -100,6 +103,7 @@ interface proptypes {
   label: String;
   type:string;
   value:string;
+  valid:boolean;
   ChangeFunc:(value:string,type:string)=>void;
 }
 function Select(props: proptypes) {
@@ -110,7 +114,7 @@ function Select(props: proptypes) {
     getToggleButtonProps,
     getMenuProps,
     getItemProps,
-    inputValue,
+    getInputProps,
     closeMenu,
     highlightedIndex,
   } = useCombobox({
@@ -127,11 +131,14 @@ function Select(props: proptypes) {
   return (
     <MainContainer {...getToggleButtonProps()} $width="300px">
       <SelectLabel>{props.label}</SelectLabel>
-      <SelectButton>
+      <SelectButton $valid={props.valid}>
         {props.value!==""?props.value:"Please Select"}
         <DropIcon></DropIcon>
       </SelectButton>
-
+      <input style={{display:"none"}}
+        {...getInputProps({
+        })}
+      />
       <DropDown
         {...getMenuProps()}
         style={{ listStyle: "none", display: isOpen ? "flex" : "none" }}

@@ -1,8 +1,6 @@
 import React,{useState} from 'react'
 import styled from 'styled-components'
 import FormPart1 from './FormPart1'
-import ReactQuill from 'react-quill'
-import { Quill } from 'react-quill';
 import FormCantainer2 from './FormPart2/main';
 import 'react-quill/dist/quill.snow.css'
 import './x.css'
@@ -21,11 +19,19 @@ const Form4=styled.div`
  
 `
 function FundraisalForm() {
+  const [FormState,SetFormState]=useState<number>(0);
+  const back=(change:number)=>{
+     SetFormState((prevState)=>prevState-change)
+  }
+  const nextPage=(change:number)=>{
+    console.log(change)
+    SetFormState((prevState)=>prevState+change)
+ }
 
   return (
     <Form1>
-<FormCantainer2/>
-
+{ FormState===0&&<FormPart1 LastFunc={back} NextFunc={nextPage}/>}
+{ FormState===1&&<FormCantainer2/>}
     </Form1>
   )
 }

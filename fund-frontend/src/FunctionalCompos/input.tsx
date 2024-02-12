@@ -4,6 +4,9 @@ import styled from "styled-components";
 interface InputWidth {
     $width: string;
   }
+  interface InputColot{
+    $valid:boolean
+  }
 const InputContainer = styled.div<InputWidth>`
   display: flex;
   width: ${(props) => `${props.$width}`};;
@@ -16,12 +19,13 @@ const InputLabel = styled.label`
   font-size: 18px;
   font-weight: 600;
 `;
-const MainInput = styled.input`
+const MainInput = styled.input<InputColot>`
   resize: none;
   height: 48px;
   min-height: 48px;
   padding: 9px 16px;
-  border: 1px solid #eaebee;
+  border:${(props) => (props.$valid?"1px solid #eaebee":"1px solid red")};
+  // border: 1px solid #eaebee;
   box-sizing: border-box;
   border-radius: 8px;
   width: 100%;
@@ -42,13 +46,14 @@ interface proptypes {
   ChangeFunc: (type: string, value: string) => void;
   type: string;
   name: string;
+  valid:boolean;
 }
 
 function Forminput(props: proptypes) {
   return (
     <InputContainer $width={props.width}>
       <InputLabel>{props.label}</InputLabel>
-      <MainInput  type={props.type}  placeholder={props.placeholder} value={props.value} name={props.name} onChange={(event)=>{props.ChangeFunc(event.target.name,event.target.value)}}></MainInput>
+      <MainInput $valid={props.valid} type={props.type}  placeholder={props.placeholder} value={props.value} name={props.name} onChange={(event)=>{props.ChangeFunc(event.target.name,event.target.value)}}></MainInput>
     </InputContainer>
   );
 }
