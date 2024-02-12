@@ -1,31 +1,25 @@
+import { IoSearchSharp } from "react-icons/io5";
+
 export const Items = [
     {
         title : "How it works",
-        url : "/",
+        url : "/howItWorks",
         cName : "nav-links",
-        icon : "fa-regular fa-house"
     },
     {
-        title : "About",
-        url : "/about",
+        title : "FAQ",
+        url : "/faq",
         cName : "nav-links",
-        icon : "fa-solid fa-circle-info"
     },
     {
-        title : "Schedule",
-        url : "/Schedule",
+        // title : "Search",
+        url : "/search",
         cName : "nav-links",
-        icon : "fa-solid fa-briefcase"
+        icon : IoSearchSharp,
     },
     {
-        title : "Contact",
+        title : "Start Fundraising",
         url : "/contact",
         cName : "nav-links",
-        icon : "fa-solid fa-address-book"
     },
-    {
-        title : "SignUp",
-        url : "/signup",
-        cName : "nav-links-mobile",
-    }
 ]

@@ -1,5 +1,5 @@
 .NavbarItems{
-    background-color: #fff;
+    /* background-color: #fff;
     display : flex;
     justify-content: space-between;
     align-items: center;
@@ -12,7 +12,27 @@
     top: 20px;
     left: 50%;
     transform: translate(-50%);
-    z-index : 999;
+    z-index : 999; */
+
+    background: #fff;
+    width: 100%;
+    position: relative;
+    z-index: 20;
+}
+
+.NavbarItems .InternalNavbarItems{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: center;
+    height: 80px;
+}
+
+.InternalNavbarItems{
+    max-width: 1010px;
+    margin: auto;
+    padding: 0 15px;
+    position: relative;
 }
 
 .NavBarLogo{
@@ -72,7 +92,7 @@ button:hover{
     display: none;
 }
 
-@media screen and (max-width : 800px)  {
+/* @media screen and (max-width : 800px)  {
     .Nav-menu{
         display: flex;
         flex-direction: column;
@@ -135,4 +155,4 @@ button:hover{
         font-size: 1.2rem;
         color : #222;
     }
-}
+} */
