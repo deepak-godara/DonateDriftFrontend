@@ -1,19 +1,12 @@
-.NavbarItems{
-    /* background-color: #fff;
-    display : flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 30px;
-    box-shadow: 0 5px 15px 0 rgba(0,0,0, .25);
-    width : 95%;
-    height : 80px;
-    border-radius: 13px;
-    position: relative;
-    top: 20px;
-    left: 50%;
-    transform: translate(-50%);
-    z-index : 999; */
+* {
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Lato,sans-serif;
+}
 
+.NavbarItems{
     background: #fff;
     width: 100%;
     position: relative;
@@ -35,6 +28,34 @@
     position: relative;
 }
 
+.NavbarItems .NavbarValues{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: calc(100% - 168px);
+}
+
+.NavbarItems .NavbarValuesP1{
+    display: flex;
+    align-items: center;
+}
+
+.NavbarValuesP1{
+    padding-left: 0;
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 50%;
+    flex: 0 0 50%;
+    max-width: 50%;
+}
+
+.NavbarValues .NavbarValuesP2{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+
+
 .NavBarLogo{
     color : #222;
     font-size: 2rem;
@@ -51,22 +72,30 @@
 
 .nav-links{
     text-decoration: none;
-    color : #222;
-    font-size: 1.2rem;
-    font-weight: 600;
-    padding : 0.7rem 1rem;
-    white-space: nowrap;
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 1.5;
+    color: #798798;
 }
 
-.nav-links i{
-    padding-right: 10px;
-}
 
 .nav-links:hover{
-    background-color: #000;
-    color : #fff;
-    border-radius: 4px;
-    transition: all 0.2s ease-in-out;
+    color: #4a90e2;
+}
+
+.nav-link{
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #4a90e2;
+}
+
+.nav-link i{
+    font-size: 16px;
+    color: #2f435a;
+    transition: .4s;
+    cursor: pointer;
 }
 
 .nav-links-mobile{
@@ -88,71 +117,4 @@ button:hover{
     color: #fff;
 }
 
-.menu-icon{
-    display: none;
-}
 
-/* @media screen and (max-width : 800px)  {
-    .Nav-menu{
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        background-color: #fff;
-        width: 100%;
-        height: auto;
-        position: absolute;
-        top: 0;
-        left: -100%;
-        opacity: 0;
-        align-items: stretch;
-        padding: 80px 0 30px 0;
-        margin: 0;
-        transition: 0.3s ease-in-out;
-        border-radius: 13px;
-    }  
-    .Nav-menu.active{
-        left: 0;
-        opacity: 1;
-        z-index: -1;
-        transition: 0.3s ease-in-out;
-    } 
-    .nav-links{
-        display: block;
-        width: 100%;
-        font-size: 1.2rem;
-        padding: 2rem 0;
-    }
-    .nav-links:hover{
-        background-color: #4a8faf;
-        transition: none;
-    }
-    button{
-        display: none;
-    }
-    .nav-links-mobile{
-        display : block;
-        text-align: center;
-        padding: 1.5rem;
-        margin: auto;
-        border-radius: 4px;
-        width : 80%;
-        background-color:#4a8faf ;
-        text-decoration: none;
-        color:#fff;
-        font-size: 1.2rem;
-        font-weight: 700;
-        letter-spacing: 2px;
-    }
-    .NavbarItems{
-        z-index: 99;
-
-    }
-    .menu-icon{
-        display: block;
-        cursor: pointer;
-    }
-    .menu-icon i{
-        font-size: 1.2rem;
-        color : #222;
-    }
-} */
