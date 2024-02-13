@@ -58,7 +58,7 @@ const ReducerTypes = {
   FirstName: { content: "", valid: true },
   LastName: { content: "", valid: true },
 };
-interface Types {
+export interface Types1 {
   FundRaiserTitle: { content: string; valid: boolean };
   Category: { content: string; valid: boolean };
   City: { content: string; valid: boolean };
@@ -68,7 +68,7 @@ interface Types {
   Currency: { content: string; valid: boolean };
 }
 const FormInformationReducer = (
-  state: Types,
+  state: Types1,
   action: { type: string; value: string,valid?:boolean }
 ) => {
   const NewState = { ...state };
@@ -103,6 +103,7 @@ const FormInformationReducer = (
 interface proptypes{
   LastFunc:(change:number)=>void;
   NextFunc:(change:number)=>void;
+  FormFunc:React.Dispatch<{ type: string; value: any }>;
 }
 function Main(props:proptypes) {
   const Currency = [
@@ -126,12 +127,10 @@ function Main(props:proptypes) {
   const Country = ["India", "Srilanka", "Pakistan"];
   const [FormInfo, SetFormInfo] = useReducer(
     FormInformationReducer,
-    ReducerTypes as Types
+    ReducerTypes as Types1
   );
   const SubmitFunc=()=>{
     let count=0;
-
-    console.log(FormInfo)
     if(FormInfo.Category.content.length===0)
     {
       count++;
@@ -162,6 +161,7 @@ function Main(props:proptypes) {
     SetFormInfo({type:"LastName",valid:false,value:""})}
     if(count===0)
     {
+      props.FormFunc({type:"part1",value:FormInfo});
       props.NextFunc(1);
     }
 
@@ -263,7 +263,7 @@ function Main(props:proptypes) {
       </Content1>
       <Division></Division>
       <SubmitContainer>
-        <Button SubmitFunc={SubmitFunc}></Button>
+        <Button SubmitFunc={SubmitFunc} BackFunc={props.LastFunc}></Button>
       </SubmitContainer>
     </MainContainer>
   );

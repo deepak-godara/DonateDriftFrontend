@@ -10,18 +10,12 @@ export const StepArray = [
     id: 2,
     title: "Fundraiser Story",
     Content:
-      "Set essential fundraiser details such as fundraiser title, target and currency",
+      "Tell your story! Add your description, images, videos and more",
   },
   {
-    id:3,
-    title: "Fund Details",
-    Content:
-      "Set essential fundraiser details such as fundraiser title, target and currency",
-  },
-  {
-    id: 4,
+    id: 3,
     title: "Payment Methods",
     Content:
-      "Set essential fundraiser details such as fundraiser title, target and currency",
+     "Enable payment processors for your fundraising page"
   },
 ];

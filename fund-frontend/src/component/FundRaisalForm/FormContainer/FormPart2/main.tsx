@@ -123,7 +123,7 @@ const ReducerTypes = {
   VideoUrl:{content: "",valid:true},
 };
 
-interface Types {
+export interface Types {
   FundraiserStory: {content:{ __html: string },valid:boolean}; // Use dangerouslySetInnerHTML format
   MainCoverPhoto:{content:string,valid:boolean};
   FundraiserPhotos: {content:Array<string>,valid:boolean};
@@ -182,7 +182,12 @@ const FormInformationReducer = (
   }
   return newState;
 };
-function FormCantainer2() {
+interface proptypes{
+  LastFunc:(change:number)=>void;
+  NextFunc:(change:number)=>void;
+  FormFunc:React.Dispatch<{ type: string; value: any }>;
+}
+function FormCantainer2(props:proptypes) {
   const photoref = useRef<HTMLInputElement>(null);
   const [FormInfo2, SetFormInfo2] = useReducer(
     FormInformationReducer,
@@ -238,7 +243,8 @@ function FormCantainer2() {
     }
     if(count===0)
     {
-
+      props.FormFunc({type:"part2",value:FormInfo2});
+      props.NextFunc(1);
     }
   }
   return (
@@ -297,7 +303,7 @@ function FormCantainer2() {
         ></Forminput>
       </Content1>
       <Division />
-      <Button SubmitFunc={CheckValidity}></Button>
+      <Button SubmitFunc={CheckValidity} BackFunc={props.LastFunc}></Button>
     </MainContainer>
   );
 }
