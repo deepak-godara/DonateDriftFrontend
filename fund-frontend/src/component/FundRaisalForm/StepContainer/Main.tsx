@@ -65,7 +65,7 @@ const LineContainer=Styled.div<lineContent>`
 height:2rem;
 border:1px solid #eef5fe;
 margin-left:26px;
-height: ${(props) => (props.$active ? "3.7rem" : (props.$last?"0rem":"1.5rem"))};
+height: ${(props) => (props.$active ? "4.5rem" : (props.$last?"0rem":"2rem"))};
 // width:1px
 `
 const   ContentContainer=Styled.div<DashBoardLinkPropsType>`
@@ -76,19 +76,24 @@ display: ${(props) => (props.$active ? "block" : "none")};
 line-height: 170%;
 color: #798798;
 `
-function StepContainer() {
+interface propsTtypes{
+  FormState:number,
+  back:(change:number)=>void;
+  nextPage:(change:number)=>void;
+}
+function StepContainer(props:propsTtypes) {
     const [Step,SetStep]=useState(0)
   return (
     <MainContainer>
       {StepArray.map((item, index) => (
         <SubContainer>
           <TopContainer>
-            <CircleContainer $active={index===Step}>{item.id}</CircleContainer>
-            <NameContainer $active={index===Step}>{item.title}</NameContainer>
+            <CircleContainer $active={index===props.FormState}>{item.id}</CircleContainer>
+            <NameContainer $active={index===props.FormState}>{item.title}</NameContainer>
           </TopContainer>
           <BottomContainer>
-            <LineContainer $active={index===Step} $last={index===StepArray.length-1}></LineContainer>
-            <ContentContainer  $active={index===Step}>{item.Content}</ContentContainer>
+            <LineContainer $active={index===props.FormState} $last={index===StepArray.length-1}></LineContainer>
+            <ContentContainer  $active={index===props.FormState}>{item.Content}</ContentContainer>
           </BottomContainer>
         </SubContainer>
       ))}

@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import { styled } from "styled-components";
 import StepContainer from "./StepContainer";
 import FormContainer from "./FormContainer";
@@ -34,7 +34,7 @@ const LeftContainer = styled.div`
   width:335px;
   padding:30px 40px;
   position:sticky;
-  top:1rem;
+  top:3rem;
   border-radius:12px;
   margin-bottom:4rem;
   box-sizing:border-box;
@@ -50,12 +50,20 @@ margin-bottom: 100px;
 }
 `
 function FormComponent() {
+  const [FormState,SetFormState]=useState<number>(0);
+  const back=(change:number)=>{
+     SetFormState((prevState)=>prevState-change)
+  }
+  const nextPage=(change:number)=>{
+    console.log(change)
+    SetFormState((prevState)=>prevState+change)
+ }
   return (
     <MainContainer>
       <FirstContainer>Kickstart Your Fundraising Endeavor</FirstContainer>
       <SecondContainer>
-        <LeftContainer><StepContainer></StepContainer></LeftContainer>
-        <RightContainer><FormContainer/></RightContainer>
+        <LeftContainer><StepContainer FormState={FormState} back={back} nextPage={nextPage}></StepContainer></LeftContainer>
+        <RightContainer><FormContainer FormState={FormState} back={back} nextPage={nextPage}/></RightContainer>
       </SecondContainer>
     </MainContainer>
   );

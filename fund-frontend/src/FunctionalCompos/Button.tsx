@@ -47,11 +47,12 @@ const BackButton = styled.button`
 `;
 interface propTypes{
     SubmitFunc:()=>void
+    BackFunc:(change:number)=>void
 }
 function Button(props:propTypes) {
   return (
     <ButtonContainer>
-      <BackButton>Back</BackButton>
+      <BackButton onClick={()=>props.BackFunc(1)}>Back</BackButton>
       <MainButton onClick={props.SubmitFunc}>Continue</MainButton>
     </ButtonContainer>
   );
