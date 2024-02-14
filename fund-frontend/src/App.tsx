@@ -11,8 +11,8 @@ function App() {
     <Router> 
       <>
         <Navbar/>
-        {/* <FundRaisalForm/> */}
-        <HomePage/>
+        <FundRaisalForm/>
+        {/* <HomePage/> */}
       </>
     </Router>
   );

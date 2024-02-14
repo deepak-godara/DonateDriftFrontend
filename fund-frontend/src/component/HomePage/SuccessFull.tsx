@@ -1,17 +1,20 @@
 import React from 'react'
 import styled from 'styled-components'
 import { SuccessFulls } from './SuccessFullFunds'
+import Category from './Category'
 import Main from '../FundRaisalForm/FormContainer/FormPart1/main'
-const MainContainer=styled.div`
+const MainContainer1=styled.div`
 width:70vw;
+margin:1rem auto;
+`
+const MainContainer=styled.div`
+width:100%;
 display:flex;
 flex-direction:row;
 overflow-x:hidden;
-margin:2rem auto;
 padding:0rem 0rem 1.5rem 0rem;
 justify-content:space-between;
 column-gap:1.5rem;
-
 `
 const PostContainer=styled.div`
 width:300px;
@@ -23,6 +26,7 @@ border-radius:16px;
 const ImageContainer=styled.img`
 width:100%;
 height:9.7rem;
+border-radius:16px;
 `
 const DataContainer=styled.div`
 width:100%;
@@ -95,9 +99,11 @@ width: 47%;
     color: #6ec052;`
 function SuccessFull() {
   return (
+    <MainContainer1>
+    <Category/>
     <MainContainer>
         {SuccessFulls.map((item,index)=><PostContainer>
-            <ImageContainer src={item.MainCover}></ImageContainer>
+            <ImageContainer src=""></ImageContainer>
             <DataContainer>
                 <NameContainer>
                     <NameData>{item.Category}</NameData>
@@ -112,6 +118,7 @@ function SuccessFull() {
             </DataContainer>
         </PostContainer>)}
     </MainContainer>
+    </MainContainer1>
   )
 }
 
