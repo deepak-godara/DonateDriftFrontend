@@ -82,7 +82,7 @@ interface propsTtypes{
   nextPage:(change:number)=>void;
 }
 function StepContainer(props:propsTtypes) {
-    const [Step,SetStep]=useState(0)
+    const [Step,SetStep]=useState<number>(0)
   return (
     <MainContainer>
       {StepArray.map((item, index) => (
