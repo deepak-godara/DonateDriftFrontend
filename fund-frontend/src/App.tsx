@@ -4,6 +4,8 @@ import './App.css';
 import FundRaisalForm from './component/FundRaisalForm';
 import Navbar from './component/NavBar/navbar';
 import HomePage from './component/HomePage';
+import DonateMainPage from './component/DonateMainPage';
+import DonateForm from './component/DonateMoneyForm/DonateForm';
 import { BrowserRouter as Router } from 'react-router-dom'; // Import BrowserRouter
 
 function App() {
@@ -11,8 +13,9 @@ function App() {
     <Router> 
       <>
         <Navbar/>
-        <FundRaisalForm/>
+        {/* <FundRaisalForm/> */}
         {/* <HomePage/> */}
+       <DonateMainPage></DonateMainPage>
       </>
     </Router>
   );
