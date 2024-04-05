@@ -10,7 +10,6 @@ function Navbar() {
     const [OpenSignUp,SetSignUp]=useState(false);
   return (
     <nav className="NavbarItems">
-
         <div className="InternalNavbarItems">
         <h1 className="NavbarLogo">DonateDrift</h1>
         
