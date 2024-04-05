@@ -7,7 +7,6 @@ function Navbar() {
 
   return (
     <nav className="NavbarItems">
-
         <div className="InternalNavbarItems">
         <h1 className="NavbarLogo">DonateDrift</h1>
         
