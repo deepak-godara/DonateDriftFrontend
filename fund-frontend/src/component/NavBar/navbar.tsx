@@ -2,9 +2,12 @@ import React, { useState } from 'react';
 import { PrimaryItems, SecondaryItems } from './Items';
 import { Link } from 'react-router-dom';
 import './navbar.css';
-
+import ModalPortal from '../../ModalPortal';
+// import  Authentication
+import Authentication from '../Authentication';
 function Navbar() {
-
+  
+    const [OpenSignUp,SetSignUp]=useState(false);
   return (
     <nav className="NavbarItems">
 
@@ -18,7 +21,6 @@ function Navbar() {
                         return (
                             <li key={index}>
                             <Link className={item.cName} to={item.url}>
-                                <i>{item.icon&&<item.icon/>}</i>
                                 {item.title}
                             </Link>
                             </li>
@@ -40,19 +42,13 @@ function Navbar() {
                         );
                         })}
 
-                        <Link to="/signup">
-                        {typeof window.myVariable !== 'undefined' && window.myVariable === 1 ? (
-                            <div>
-                                drop Down
-                            </div>
-                        ) : (
-                            <button>Sign Up</button>
-                        )}
-                        </Link>
+                            <button onClick={()=>{SetSignUp(true);
+                             console.log("ij")}}>Sign Up</button>
                     </ul>
                 </div>
             </div>
         </div>
+        {OpenSignUp&&<ModalPortal onClose={()=>{SetSignUp(false)}}><Authentication onClose={()=>{SetSignUp(false)}}/></ModalPortal>}
     </nav>
   );
 }

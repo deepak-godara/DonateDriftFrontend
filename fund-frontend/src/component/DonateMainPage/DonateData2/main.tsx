@@ -4,7 +4,7 @@ import LeftContainer from "./LeftContainer";
 import DonationForm from "./LeftContainer/DonationForm";
 const MainContainer = styled.div`
   margin-top: 52px;
-  width: 60rem;
+  width: 100%;
   position:relative;
   justify-content: space-between !important;
   display: flex;

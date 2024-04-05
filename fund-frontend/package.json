@@ -47,9 +47,11 @@
   },
   "devDependencies": {
     "@types/draftjs-to-html": "^0.8.4",
+    "@types/js-cookie": "^3.0.6",
     "@types/react-draft-wysiwyg": "^1.13.8",
     "draftjs-to-html": "^0.9.1",
     "html-to-draftjs": "^1.5.0",
+    "js-cookie": "^3.0.5",
     "react-draft-wysiwyg": "^1.15.0",
     "react-icons": "^5.0.1",
     "react-router-dom": "^6.22.0"

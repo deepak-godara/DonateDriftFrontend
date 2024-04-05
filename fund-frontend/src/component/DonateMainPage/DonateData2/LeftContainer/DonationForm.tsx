@@ -8,7 +8,7 @@ const MainContainer = styled.div`
   top: 1rem;
   border-radius: 16px;
   text-align: center;
-  width: 300px;
+  width: 33.5%;
   height: 25rem;
   box-shadow: 0 1.9021px 3.53246px rgba(47, 67, 90, 0.0278729),
     0 5.25905px 9.76681px rgba(47, 67, 90, 0.04),

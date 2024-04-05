@@ -2,8 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import { BenefitArray } from "./BenefitsArray";
 const MainContainer = styled.div`
-  width: 70vw;
-  margin: 0rem auto;
+  width: 100%;
+  margin: 2rem auto;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -27,7 +27,7 @@ const LeftContainer = styled.div`
 
 const ItemDiv = styled.div`
   display: flex;
-  width: 243px;
+  width: 200px;
   padding: 1.5rem;
   box-sizing: border-box;
   flex-direction: column;

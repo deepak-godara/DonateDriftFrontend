@@ -2,8 +2,10 @@ import React from 'react'
 import styled from 'styled-components'
 import Discover from"../../assests/Discover.jpg"
 import Create from"../../assests/Create.jpg"
+import Cookies from 'js-cookie'
+import { useNavigate } from 'react-router-dom'
 const MainContainer=styled.div`
-width: 70vw;
+width: 100%;
 display:flex;
 
 margin:3rem auto;
@@ -15,9 +17,10 @@ interface ImageProp{
 }
 const ButtonContainer=styled.div<ImageProp>`
 background-image:url(${(props)=> props.$image});
-width:470px;
+width:48%;
 position:relative;
 height:225px;
+object-fit: cover;
 border-radius:16px
 `
 const ClickContainer=styled.div`
@@ -41,9 +44,17 @@ padding:0.7rem 3rem;
  }
 `
 function SpecialButtons() {
+  const token=Cookies.get("token")
+  const Navigate=useNavigate();
+  const StartFundRaiserFunc=()=>{
+       if(token)
+       {
+          Navigate("/Fundraise");
+       }
+  }
   return (
    <MainContainer>
-    <ButtonContainer $image={Discover}><ClickContainer>Fund Someone</ClickContainer></ButtonContainer>
+    <ButtonContainer $image={Discover} onClick={StartFundRaiserFunc}><ClickContainer>Fund Someone</ClickContainer></ButtonContainer>
     <ButtonContainer $image={Create}><ClickContainer>Start Fundraising</ClickContainer></ButtonContainer>
    </MainContainer>
   )

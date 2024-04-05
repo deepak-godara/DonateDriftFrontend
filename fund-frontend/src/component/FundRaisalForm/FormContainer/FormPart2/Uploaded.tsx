@@ -46,9 +46,10 @@ const Item = styled.button`
 `;
 interface propTypes {
   index: number;
+  imageFile:File;
   photoarray: string;
   DeleteFunc: (index: number) => void;
-  MakeCoverFunc: (image: string) => void;
+  MakeCoverFunc: (image: File,Image2:string) => void;
 }
 function Uploaded(props: propTypes) {
   return (
@@ -56,7 +57,7 @@ function Uploaded(props: propTypes) {
       <ImageContainer src={props.photoarray} alt="not availabel" />
       <PhotoOption>
         <Item onClick={()=>{
-          props.MakeCoverFunc(props.photoarray)
+          props.MakeCoverFunc(props.imageFile,props.photoarray)
         }}>Make cover</Item>
         <Item
           onClick={() => {

@@ -2,9 +2,11 @@ import React from 'react'
 import styled from 'styled-components'
 import { SuccessFulls } from './SuccessFullFunds'
 import Category from './Category'
+import { useEffect } from 'react'
+import {FetchFundRaisers} from "../../backendApi/services/FundRasierFetch";
 import Main from '../FundRaisalForm/FormContainer/FormPart1/main'
 const MainContainer1=styled.div`
-width:70vw;
+width:100%;
 margin:1rem auto;
 `
 const MainContainer=styled.div`
@@ -98,6 +100,13 @@ width: 47%;
     text-align: right;
     color: #6ec052;`
 function SuccessFull() {
+    useEffect(()=>{
+    async function getfundraisers(){
+     const data=await FetchFundRaisers();
+     console.log(data);
+    }
+getfundraisers();
+    },[])
   return (
     <MainContainer1>
     <Category/>

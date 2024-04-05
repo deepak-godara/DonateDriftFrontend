@@ -50,22 +50,23 @@ const SubmitContainer = styled.div`
   width: 100%;
 `;
 const ReducerTypes = {
-  FundRaiserTitle: { content: "", valid: true },
-  Category: { content: "", valid: true },
-  City: { content: "", valid: true },
-  Currency: { content: "", valid: true },
-  Country: { content: "", valid: true },
-  FirstName: { content: "", valid: true },
-  LastName: { content: "", valid: true },
+  title: { content: "", valid: true },
+  category: { content: "", valid: true },
+  city: { content: "", valid: true },
+  currency: { content: "", valid: true },
+  country: { content: "", valid: true },
+  firstName: { content: "", valid: true },
+  lastName: { content: "", valid: true },
 };
+
 export interface Types1 {
-  FundRaiserTitle: { content: string; valid: boolean };
-  Category: { content: string; valid: boolean };
-  City: { content: string; valid: boolean };
-  Country: { content: string; valid: boolean };
-  FirstName: { content: string; valid: boolean };
-  LastName: { content: string; valid: boolean };
-  Currency: { content: string; valid: boolean };
+  title: { content: string; valid: boolean };
+  category: { content: string; valid: boolean };
+  city: { content: string; valid: boolean };
+  country: { content: string; valid: boolean };
+  firstName: { content: string; valid: boolean };
+  lastName: { content: string; valid: boolean };
+  currency: { content: string; valid: boolean };
 }
 const FormInformationReducer = (
   state: Types1,
@@ -74,36 +75,52 @@ const FormInformationReducer = (
   const NewState = { ...state };
   if(action.valid!==undefined)
   {
-    if(action.type==="Currency")
-    NewState.Currency.valid=action.valid;
-    else if(action.type==="City")
-    NewState.City.valid=action.valid;
-    else if(action.type==="FirstName")
-    NewState.FirstName.valid=action.valid;
-    else if(action.type==="LastName")
-    NewState.LastName.valid=action.valid;
-    else if(action.type==="FundRaiserTitle")
-    NewState.FundRaiserTitle.valid=action.valid;
-    else if(action.type==="Country")
-    NewState.Country.valid=action.valid;
-    else if(action.type==="Category")
-    NewState.Category.valid=action.valid;
+    if(action.type==="currency")
+      NewState.currency.valid=action.valid;
+    else if(action.type==="city")
+      NewState.city.valid=action.valid;
+    else if(action.type==="firstName")
+      NewState.firstName.valid=action.valid;
+    else if(action.type==="lastName")
+      NewState.lastName.valid=action.valid;
+    else if(action.type==="title")
+      NewState.title.valid=action.valid;
+    else if(action.type==="country")
+      NewState.country.valid=action.valid;
+    else if(action.type==="category")
+      NewState.category.valid=action.valid;
   }
-  else{
-  if (action.type === "currency") {NewState.Currency.content = action.value; NewState.Currency.valid=true}
-  else if (action.type === "country") {NewState.Country.content = action.value; NewState.Country.valid=true}
-  else if (action.type === "category") {NewState.Category.content = action.value; NewState.Category.valid=true}
-  else if (action.type === "FundraisalTitle"){NewState.FundRaiserTitle.content = action.value; NewState.FundRaiserTitle.valid=true}
-  else if (action.type === "City") {NewState.City.content = action.value; NewState.City.valid=true}
-  else if (action.type === "FirstName"){NewState.FirstName.content = action.value; NewState.FirstName.valid=true}
-  else if (action.type === "LastName"){NewState.LastName.content = action.value; NewState.LastName.valid=true}
+  else {
+    if (action.type === "currency") {
+      NewState.currency.content = action.value;
+      NewState.currency.valid = true;
+    } else if (action.type === "country") {
+      NewState.country.content = action.value;
+      NewState.country.valid = true;
+    } else if (action.type === "category") {
+      NewState.category.content = action.value;
+      NewState.category.valid = true;
+    } else if (action.type === "title") {
+      NewState.title.content = action.value;
+      NewState.title.valid = true;
+    } else if (action.type === "city") {
+      NewState.city.content = action.value;
+      NewState.city.valid = true;
+    } else if (action.type === "firstName") {
+      NewState.firstName.content = action.value;
+      NewState.firstName.valid = true;
+    } else if (action.type === "lastName") {
+      NewState.lastName.content = action.value;
+      NewState.lastName.valid = true;
+    }
   }
   return NewState;
 };
+
 interface proptypes{
   LastFunc:(change:number)=>void;
   NextFunc:(change:number)=>void;
-  FormFunc:React.Dispatch<{ type: string; value: any }>;
+  FormFunc:(Data:Types1)=>void;
 }
 function Main(props:proptypes) {
   const Currency = [
@@ -129,39 +146,39 @@ function Main(props:proptypes) {
     FormInformationReducer,
     ReducerTypes as Types1
   );
-  const SubmitFunc=()=>{
-    let count=0;
-    if(FormInfo.Category.content.length===0)
+  const SubmitFunc = () => {
+    let count = 0;
+    if (FormInfo.category.content.length === 0) {
+      count++;
+      SetFormInfo({ type: "category", valid: false, value: "" });
+    }
+    if (FormInfo.country.content.length === 0) {
+      count++;
+      SetFormInfo({ type: "country", valid: false, value: "" });
+    }
+    if (FormInfo.city.content === "") {
+      count++;
+      SetFormInfo({ type: "city", valid: false, value: "" });
+    }
+    if (FormInfo.currency.content.length === 0) {
+      count++;
+      SetFormInfo({ type: "currency", valid: false, value: "" });
+    }
+    if (FormInfo.title.content.length === 0) {
+      count++;
+      SetFormInfo({ type: "title", valid: false, value: "" });
+    }
+    if(FormInfo.firstName.content.length===0)
     {
       count++;
-    SetFormInfo({type:"Category",valid:false,value:""})}
-    if(FormInfo.Country.content.length===0)
+    SetFormInfo({type:"firstName",valid:false,value:""})}
+    if(FormInfo.lastName.content.length===0)
     {
       count++;
-    SetFormInfo({type:"Country",valid:false,value:""})}
-    if(FormInfo.City.content==="")
-    {
-      count++;
-    SetFormInfo({type:"City",valid:false,value:""})}
-    if(FormInfo.Currency.content.length===0)
-    {
-      count++;
-    SetFormInfo({type:"Currency",valid:false,value:""})}
-    if(FormInfo.FundRaiserTitle.content.length===0)
-    {
-      count++;
-    SetFormInfo({type:"FundRaiserTitle",valid:false,value:""})}
-    if(FormInfo.FirstName.content.length===0)
-    {
-      count++;
-    SetFormInfo({type:"FirstName",valid:false,value:""})}
-    if(FormInfo.LastName.content.length===0)
-    {
-      count++;
-    SetFormInfo({type:"LastName",valid:false,value:""})}
+    SetFormInfo({type:"lastName",valid:false,value:""})}
     if(count===0)
     {
-      props.FormFunc({type:"part1",value:FormInfo});
+      props.FormFunc(FormInfo);
       props.NextFunc(1);
     }
 
@@ -176,9 +193,9 @@ function Main(props:proptypes) {
           type="string"
           label="Fundraiser Title"
           placeholder=" Add  the title to your page"
-          value={FormInfo.FundRaiserTitle.content}
-          name="FundraisalTitle"
-          valid={FormInfo.FundRaiserTitle.valid}
+          value={FormInfo.title.content}
+          name="title"
+          valid={FormInfo.title.valid}
           ChangeFunc={(type, value) => {
             SetFormInfo({ type, value });
           }}
@@ -189,8 +206,8 @@ function Main(props:proptypes) {
             SetFormInfo({ type: type, value: value });
           }}
           type="category"
-          value={FormInfo.Category.content}
-          valid={FormInfo.Category.valid}
+          value={FormInfo.category.content}
+          valid={FormInfo.category.valid}
           label="Fundraiser category"
         ></Select>
       </Content1>
@@ -202,18 +219,18 @@ function Main(props:proptypes) {
             SetFormInfo({ type: type, value: value });
           }}
           type="country"
-          value={FormInfo.Country.content}
-          valid={FormInfo.Country.valid}
+          value={FormInfo.country.content}
+          valid={FormInfo.country.valid}
           label="Country"
         ></Select>
         <Forminput
           width="100%"
           type="string"
-          label="City"
+          label="city"
           placeholder=" Add City"
-          value={FormInfo.City.content}
-          name="City"
-          valid={FormInfo.City.valid}
+          value={FormInfo.city.content}
+          name="city"
+          valid={FormInfo.city.valid}
           ChangeFunc={(type, value) => {
             SetFormInfo({ type, value });
           }}
@@ -227,8 +244,8 @@ function Main(props:proptypes) {
             SetFormInfo({ type: type, value: value });
           }}
           type="currency"
-          value={FormInfo.Currency.content}
-          valid={FormInfo.Currency.valid}
+          value={FormInfo.currency.content}
+          valid={FormInfo.currency.valid}
           label="Fundraiser currency"
         ></Select>
       </Content1>
@@ -240,9 +257,9 @@ function Main(props:proptypes) {
             type="string"
             label="Your first name"
             placeholder="Enter first name"
-            value={FormInfo.FirstName.content}
-            name="FirstName"
-            valid={FormInfo.FirstName.valid}
+            value={FormInfo.firstName.content}
+            name="firstName"
+            valid={FormInfo.firstName.valid}
             ChangeFunc={(type, value) => {
               SetFormInfo({ type, value });
             }}
@@ -252,9 +269,9 @@ function Main(props:proptypes) {
             type="string"
             label="Your last name"
             placeholder="Enter last name"
-            value={FormInfo.LastName.content}
-            name="LastName"
-            valid={FormInfo.LastName.valid}
+            value={FormInfo.lastName.content}
+            name="lastName"
+            valid={FormInfo.lastName.valid}
             ChangeFunc={(type, value) => {
               SetFormInfo({ type, value });
             }}

@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Story from "./Story";
 import Donors from "./Donors";
 const MainContainer = styled.div`
-  width: 600px !important;
+  width: 63.5%;
   margin-bottom: 3rem;
   padding: 0 !important;
   display: flex;

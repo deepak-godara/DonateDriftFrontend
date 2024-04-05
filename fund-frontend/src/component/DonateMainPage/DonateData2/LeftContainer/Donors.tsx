@@ -79,7 +79,7 @@ function DonorsElement(props: PropTypes) {
       <DonorIcon>
         <BsPersonCircle
           style={{
-            color: "#baefba",
+            color: "#53ca8b",
             border: "none",
             background: "#d9f7d938",
             borderRadius: "50%",

@@ -9,6 +9,7 @@ import "../../../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg
 import Forminput from "../../../../FunctionalCompos/input";
 import "./editor.css";
 import Editors from "./Editor";
+// import { GetUrl } from "./Uploaded";
 import Button from "../../../../FunctionalCompos/Button";
 const MainContainer = styled.div`
   display: flex;
@@ -117,22 +118,26 @@ const PhotoInput = styled.input`
   display: none;
 `;
 const ReducerTypes = {
-  FundraiserStory: {content:{ __html: "" },valid:true}, // Initial HTML content
-  MainCoverPhoto:{ content:"",valid:true},
+  FundraiserStory: {content: "",valid:true}, // Initial HTML content
+  UseMainCover:{content:"",valid:true},
+  MainCoverPhoto:{ content:undefined,valid:true},
+  UseFundraiserPhotos:{content:[],valid:true},
   FundraiserPhotos:{content:[],valid:true},
   VideoUrl:{content: "",valid:true},
 };
 
 export interface Types {
-  FundraiserStory: {content:{ __html: string },valid:boolean}; // Use dangerouslySetInnerHTML format
-  MainCoverPhoto:{content:string,valid:boolean};
-  FundraiserPhotos: {content:Array<string>,valid:boolean};
+  FundraiserStory: {content:string ,valid:boolean}; // Use dangerouslySetInnerHTML format
+  MainCoverPhoto:{content:File|undefined,valid:boolean};
+  FundraiserPhotos: {content:Array<File>,valid:boolean};
+  UseMainCover:{content:string,valid:boolean};
+  UseFundraiserPhotos: {content:Array<string>,valid:boolean};
   VideoUrl:{content:string,valid:boolean};
 }
 
 const FormInformationReducer = (
   state: Types,
-  action: { type: string; value: string | HTMLElement | number,valid?:boolean }
+  action: { type: string; value: string | HTMLElement | number|File|undefined,valid?:boolean }
 ) => {
   const newState = { ...state };
   if(action.valid!==undefined)
@@ -149,28 +154,45 @@ const FormInformationReducer = (
   else{
   if (action.type === "FundraiserStory") {
     if (typeof action.value === "string") {
-      newState.FundraiserStory.content = { __html: action.value };
+      newState.FundraiserStory.content =  action.value ;
     } else if (action.value instanceof HTMLElement) {
-      newState.FundraiserStory.content = { __html: action.value.outerHTML };
+      newState.FundraiserStory.content =  action.value.outerHTML ;
     }
   } else if (action.type === "VideoUrl" && typeof action.value === "string") {
     newState.VideoUrl.content = action.value; newState.VideoUrl.valid=true
   } else if (
     action.type === "FundraiserPhotos" &&
-    typeof action.value === "string"
+     action.value instanceof File
   ) {
     newState.FundraiserPhotos.content.push(action.value); newState.FundraiserPhotos.valid=true
-  } else if (
+  }
+  else if (
+    action.type === "UseFundraiserPhotos" &&
+     typeof action.value==="string"
+  ) {
+    newState.UseFundraiserPhotos.content.push(action.value); newState.UseFundraiserPhotos.valid=true
+    newState.UseFundraiserPhotos.content= newState.UseFundraiserPhotos.content.filter((item, index, self) => {
+      // Return true if the current item is the first occurrence in the array
+      return self.indexOf(item) === index;
+  })
+  }
+   else if (
     action.type === "DeleteImage" &&
     typeof action.value === "number"
   ) {
     newState.FundraiserPhotos.content = newState.FundraiserPhotos.content.filter(
       (item, index) => index !== action.value
     );
-  } else if (action.type === "MakeCover" && typeof action.value === "string") {
+    newState.UseFundraiserPhotos.content = newState.UseFundraiserPhotos.content.filter(
+      (item, index) => index !== action.value
+    );
+  }
+   else if (action.type === "MakeCover" && action.value instanceof File) {
     newState.MainCoverPhoto.content = action.value; newState.MainCoverPhoto.valid=true
   }
-
+  else if (action.type === "UseMakeCover" && typeof action.value==="string") {
+    newState.UseMainCover.content = action.value; newState.MainCoverPhoto.valid=true
+  }
   newState.FundraiserPhotos.content = newState.FundraiserPhotos.content.filter(
     (value, index, self) => {
       return self.indexOf(value) === index;
@@ -180,12 +202,19 @@ const FormInformationReducer = (
   if (newState.FundraiserPhotos.content.length < 2) {
     newState.MainCoverPhoto.content = newState.FundraiserPhotos.content[0];
   }
+  if (newState.UseFundraiserPhotos.content.length < 2) {
+    newState.UseMainCover.content = newState.UseFundraiserPhotos.content[0];
+  }
+// console.log("hii");
+  console.log(newState);
   return newState;
 };
 interface proptypes{
   LastFunc:(change:number)=>void;
   NextFunc:(change:number)=>void;
-  FormFunc:React.Dispatch<{ type: string; value: any }>;
+  FormFunc:(Data: Types )=>void;
+Subunc:( )=>void;
+state:number
 }
 function FormCantainer2(props:proptypes) {
   const photoref = useRef<HTMLInputElement>(null);
@@ -193,6 +222,7 @@ function FormCantainer2(props:proptypes) {
     FormInformationReducer,
     ReducerTypes as Types
   );
+  const [Count,SetCount]=useState<number>(0);
   const handleAddImageClick = () => {
     if (photoref.current) photoref.current.click();
   };
@@ -203,8 +233,10 @@ function FormCantainer2(props:proptypes) {
       reader.readAsDataURL(Image);
       reader.onload = () => {
         if (typeof reader.result === "string")
-          if (!FormInfo2.FundraiserPhotos.content.includes(reader.result)) {
-            SetFormInfo2({ type: "FundraiserPhotos", value: reader.result });
+          if (!FormInfo2.FundraiserPhotos.content.includes(Image)) {
+            SetFormInfo2({ type: "FundraiserPhotos", value: Image });
+            SetFormInfo2({ type: "UseFundraiserPhotos", value: reader.result })
+          SetCount(Count+1);
           }
       };
     }
@@ -218,11 +250,14 @@ function FormCantainer2(props:proptypes) {
   };
   const DeleteFunc = (index: number) => {
     SetFormInfo2({ type: "DeleteImage", value: index });
+    SetCount(Count-1);
   };
-  const MakeCover = (image: string) => {
+  const MakeCover = (image: File,Image2:string) => {
     console.log("hii  " + image);
     SetFormInfo2({ type: "MakeCover", value: image });
+    SetFormInfo2({ type: "UseMakeCover", value: Image2 });
   };
+  const[state,setStatw]=useState<number>(0);
   const CheckValidity=()=>{
     let count=0;
     console.log("sdvs")
@@ -236,16 +271,25 @@ function FormCantainer2(props:proptypes) {
       SetFormInfo2({valid:false,type:"FundRaiserPhotos",value:""})
       count++;
     }
-    if(FormInfo2.MainCoverPhoto.content==="")
+    if(FormInfo2.MainCoverPhoto.content===undefined)
     {
-      SetFormInfo2({valid:false,type:"MainCover",value:""})
+      SetFormInfo2({valid:false,type:"MainCover",value:undefined})
       count++;
     }
     if(count===0)
     {
-      props.FormFunc({type:"part2",value:FormInfo2});
-      props.NextFunc(1);
+      console.log(state+"  fg")
+      if(state===0)
+      {
+      props.FormFunc(FormInfo2);
+      setStatw(1);
+          }
+    else
+    {
+props.Subunc();
+      props.NextFunc(0);
     }
+  }
   }
   return (
     <MainContainer>
@@ -259,7 +303,7 @@ function FormCantainer2(props:proptypes) {
         <MainPhotoContainer>
           <PhotoContainer1
             $displays={FormInfo2.FundraiserPhotos.content.length > 0}
-            src={FormInfo2.MainCoverPhoto.content}
+            src={FormInfo2.UseMainCover.content}
           ></PhotoContainer1>
           <PhotoContainer2>
             {FormInfo2.FundraiserPhotos.content.map((item, index) => (
@@ -267,9 +311,11 @@ function FormCantainer2(props:proptypes) {
                 MakeCoverFunc={MakeCover}
                 DeleteFunc={DeleteFunc}
                 index={index}
-                photoarray={item}
+                photoarray={FormInfo2.UseFundraiserPhotos.content[index]}
+                imageFile={item}
               />
             ))}
+            {Count<5&&
             <PhotoAddContainer
               $displays={FormInfo2.FundraiserPhotos.content.length > 0}
               onClick={handleAddImageClick}
@@ -284,6 +330,7 @@ function FormCantainer2(props:proptypes) {
               <PlusLogo />
               <UploadContainer>Upload photos</UploadContainer>
             </PhotoAddContainer>
+}
           </PhotoContainer2>
         </MainPhotoContainer>
       </Content1>

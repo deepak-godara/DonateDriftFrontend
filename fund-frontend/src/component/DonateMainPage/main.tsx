@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { DonateData } from "./DonateData";
 import DonateData2 from "./DonateData2";
 const MainContainer = styled.div`
-  width: 75%;
+  width: 100%;
   display: flex;
   margin: 1rem auto;
   flex-direction: column;
