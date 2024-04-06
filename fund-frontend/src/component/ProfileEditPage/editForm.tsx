@@ -226,6 +226,9 @@ function EditFormInput(){
         FormInformationReducer,
         ReducerTypes as Types1
     );
+    const handleAddImageClick = () => {
+        if (photoref.current) photoref.current.click();
+      };
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const Image = event.target.files?.[0];
         if (Image) {
@@ -239,7 +242,7 @@ function EditFormInput(){
       };
 
     const handelSubmit = () =>{
-        if (FormInfo.UserName.content === "" || FormInfo.AboutMe.content === "" || FormInfo.City.content === "" || FormInfo.Country.content === "" || FormInfo.Password.content === ""){
+        if (FormInfo.UserName.content === "" || FormInfo.AboutMe.content === "" || FormInfo.City.content === "" || FormInfo.Country.content === "" || FormInfo.Password.content === ""||FormInfo.ProfilePhoto.content===null){
             console.log("Please fill in all the required fields");
             setErrorMessage("Please fill in all the required fields");
             return;
@@ -276,17 +279,10 @@ function EditFormInput(){
                 <DPDiv>
                     <InputLabel><p>Upload your Profile Picture</p></InputLabel>
                     <SmallLabel><p>This will we shown next to your name</p></SmallLabel>
-                    <PhotoInput >
-                        <StyledCiCamera />
+                    <PhotoInput onClick={handleAddImageClick} >
+                        <StyledCiCamera  />
 
-                        <Inp 
-                        ref={photoref}
-                        type="file"
-                        accept="image/*"
-                        style={{ display: "none" }}
-                        onChange={handleFileChange}
-                        name = "ProfilePhoto"
-                        ></Inp>
+                       
 
                         <InsideText><p>Upload Photo</p></InsideText>
                     </PhotoInput>
@@ -357,6 +353,14 @@ function EditFormInput(){
                 </SubmitContainer>
 
             </DataContainer>
+            <Inp 
+                        ref={photoref}
+                        type="file"
+                        accept="image/*"
+                        style={{ display: "none" }}
+                        onChange={handleFileChange}
+                        name = "ProfilePhoto"
+                        ></Inp>
         </EditContainer>
     )
 }

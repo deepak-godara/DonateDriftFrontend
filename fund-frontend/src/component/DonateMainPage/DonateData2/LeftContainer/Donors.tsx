@@ -114,7 +114,8 @@ function Donors(props: propTypes) {
   return (
     <MainContainer>
         <Donorr>Donors & Comments</Donorr>
-      {props.Donors.map((item, index) => DonorsElement(item))}
+        {props.Donors!==undefined&&
+              props.Donors.map((item, index) => DonorsElement(item))}
     </MainContainer>
   );
 }

@@ -86,11 +86,9 @@ function Main(props:propTypes) {
     },[])
     const  photoref=useRef<HTMLDivElement>(null);
     const SlideFunc=(value:number)=>{
-        console.log("hii")
         if(photoref.current)
         {
             let leftval=parseFloat(photoref.current.style.left);
-            console.log(value)
             if(value>=0)
             {
                 leftval=value*8;
@@ -98,20 +96,14 @@ function Main(props:propTypes) {
             }
             else if(value===-1)
             {
-                // leftval+=8;
-                console.log(leftval)
                 leftval+=8;
-                console.log(leftval)
             photoref.current.style.left=`${leftval}rem`;
             }
             else
             {
-                console.log(leftval)
                 leftval-=8;
-                console.log(leftval)
                 photoref.current.style.left=`${leftval}rem`;
             }
-        // console.log(photoref.current.style.left);
         }
     }
   

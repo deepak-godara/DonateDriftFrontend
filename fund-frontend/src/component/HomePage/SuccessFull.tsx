@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import { SuccessFulls } from './SuccessFullFunds'
 import Category from './Category'
 import { useEffect } from 'react'
+import DonationCard from '../DonationCard'
 import {FetchFundRaisers} from "../../backendApi/services/FundRasierFetch";
 import Main from '../FundRaisalForm/FormContainer/FormPart1/main'
+import { RequiredFormat } from '../DonationCard/main'
 const MainContainer1=styled.div`
 width:100%;
 margin:1rem auto;
@@ -99,11 +101,14 @@ width: 47%;
     font-weight: 700;
     text-align: right;
     color: #6ec052;`
+
 function SuccessFull() {
+    const [Fundrasiers,SetFundraisers]=useState<RequiredFormat[]>([]);
     useEffect(()=>{
     async function getfundraisers(){
      const data=await FetchFundRaisers();
-     console.log(data);
+     if(data.success&&data.data)
+     SetFundraisers(data.data);
     }
 getfundraisers();
     },[])
@@ -111,21 +116,8 @@ getfundraisers();
     <MainContainer1>
     <Category/>
     <MainContainer>
-        {SuccessFulls.map((item,index)=><PostContainer>
-            <ImageContainer src=""></ImageContainer>
-            <DataContainer>
-                <NameContainer>
-                    <NameData>{item.Category}</NameData>
-                    <CountryData>{item.Country}</CountryData>
-                </NameContainer>
-                <SecondData>{item.FundraiserTitle}</SecondData>
-                <ThirdData>{item.Story}</ThirdData>
-                <LastData>
-                    <AmountDiv>{item.Amount}</AmountDiv>
-                    <PercentageDiv>{item.Percentage}</PercentageDiv>
-                </LastData>
-            </DataContainer>
-        </PostContainer>)}
+        {Fundrasiers.length>0&&
+        Fundrasiers.map((item,index)=><DonationCard Data={item}></DonationCard>)}
     </MainContainer>
     </MainContainer1>
   )

@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { DonateData } from "./DonateData";
 import DonateData2 from "./DonateData2";
+import { GetFundRaiserData } from "../../backendApi/services/GetFundRaiser";
+import { useParams } from "react-router-dom";
 const MainContainer = styled.div`
-  width: 100%;
+  width: 60rem;
+  max-width:90%;
   display: flex;
   margin: 1rem auto;
   flex-direction: column;
@@ -60,9 +63,43 @@ font-size: 14px;
 line-height: 150%;
 color: #f27979;
 }`;
-function main() {
+export interface DonationDataType {
+  FundraiserTitle: String;
+  CreaterName: String;
+  FundRaiserId: number;
+  City: String;
+  Country: String;
+  Category: String;
+  FundRaiserPhotos: Array<string>;
+  FundRaiserStory: string;
+  Amount: number;
+  Percentage: number;
+  Donors: Array<any>;
+  CoverPhoto: String;
+}
+function Donation() {
+  const Param = useParams();
+  const [DonateData, SetFundraier] = useState<DonationDataType | null>(null);
+  const [Error, SetError] = useState<boolean>(false);
+  const [Display, SetDisplay] = useState<boolean>(false);
+  useEffect(() => {
+    async function GetFundrasierDetails() {
+      const Fundraiserid: any = Param.id;
+      const Data = await GetFundRaiserData(Fundraiserid);
+      if (Data.success && Data.data) {
+        SetFundraier(Data.data);
+        SetDisplay(true);
+      } else {
+        SetError(true);
+        SetDisplay(true);
+      }
+    }
+    GetFundrasierDetails();
+  });
   return (
     <MainContainer>
+      {Display&&DonateData&&
+      <>
       <FundRaiserTitle>{DonateData.FundraiserTitle}</FundRaiserTitle>
       <SecondData>
         <DataContainer1>
@@ -82,8 +119,9 @@ function main() {
         FundRaiserStory={DonateData.FundRaiserStory}
         Donors={DonateData.Donors}
       />
+      </>}
     </MainContainer>
   );
 }
 
-export default main;
+export default Donation;

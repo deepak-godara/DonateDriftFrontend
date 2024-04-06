@@ -6,5 +6,6 @@ export const urlFunctions={
     signupUri:()=>`${baseUri}/auth/signup`,
     VerifyUserUri:()=>`${baseUri}/verifyuser`,
     UploadFundraisal:(id:number)=>`${baseUri}/api/fundraisers/${id}`,
-    GetFundraisers:()=>`${baseUri}/api/fundraisers`
+    GetFundraisers:()=>`${baseUri}/api/fundraisers`,
+    GetFundraiserdata:(id:any)=>`${baseUri}/api/fundraisers/${id}`
 }

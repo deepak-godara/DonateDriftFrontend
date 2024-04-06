@@ -13,6 +13,7 @@ import { Routes, Route } from "react-router-dom";
 import Authentication from "./component/Authentication";
 import SignUp from "./component/Authentication/SignUp";
 import Cookies from "js-cookie";
+import EditFormInput from "./component/ProfileEditPage/editForm";
 function App() {
   const [Token, SetToken] = useState<boolean>(false);
   const [Display, SetDisplay] = useState<boolean>(false);
@@ -38,7 +39,9 @@ function App() {
           <Route path="" element={<UserLayout />}>
             <Route index element={<HomePage/>}/>
             <Route path="/Fundraise" element={<FundRaisalForm/>}/>
+            <Route path="fundraiser/:id" element={<DonateMainPage/>}/>
           </Route>
+       
         </>
       )}
       {!Token && (

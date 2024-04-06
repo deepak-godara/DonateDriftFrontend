@@ -1,7 +1,7 @@
 import Discover from"../../assests/Discover.jpg"
 export const SuccessFulls=[
     {
-        MainCover:Discover,
+        MainCover:"sd",
         Category:"Medical and Health",
         FundraiserTitle:"Jenna's Tumor must go",
         Country:"India",
@@ -11,7 +11,7 @@ export const SuccessFulls=[
         NumberofDonors:10
     },
     {
-        MainCover:Discover,
+        MainCover:"sds",
         Category:"Medical and Health",
         Country:"India",
         
@@ -22,7 +22,7 @@ export const SuccessFulls=[
         NumberofDonors:10
     },
     {
-        MainCover:Discover,
+        MainCover:"sdf",
         Category:"Medical and Health",
         
         FundraiserTitle:"Jenna's Tumor must go",

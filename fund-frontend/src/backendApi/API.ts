@@ -23,8 +23,6 @@ export const API = {
       }
     }
     const token = Cookies.get("token");
-    console.log("hello")
-    // console.log(data.get("files"))
     const res1 = await fetch(url, {
       method: "POST",
       headers: {
@@ -111,8 +109,10 @@ export const API = {
       },
     });
   }
+  console.log(res);
     if (res.ok) {
       const data = await res.json();
+      console.log(data)
       return { success: true, data: data };
     } else {
       return { success: false, data: "Could not Get" };
