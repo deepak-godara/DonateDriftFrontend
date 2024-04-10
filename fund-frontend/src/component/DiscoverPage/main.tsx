@@ -1,7 +1,32 @@
-import React, {useReducer, useState} from "react";
+import React, { useReducer, useState, useEffect } from "react";
 import styled from 'styled-components'
 import Select from "../../FunctionalCompos/Select";
 import PostCard from "../DonationCard/main";
+import { RequiredFormat } from "../DonationCard/main";
+import { API } from '../../backendApi/API'
+import { urlFunctions } from '../../backendApi/function/createUrl'
+import { GetFundraisersMapped } from '../../backendApi/MapperFunctions/FundRaisers'
+import { BsBraces } from "react-icons/bs";
+
+
+interface InputWidth {
+    $width: number;
+    $trans: number;
+}
+
+const MovContainer = styled.div<InputWidth>`
+  width: auto;
+  display: flex;
+  top: 0rem;
+  left: ${(props) => `-${props.$width}rem`};
+  position: absolute;
+  margin-left: 1.55rem;
+  flex-direction: row;
+  padding: 0rem 0rem 1.5rem 0rem;
+  justify-content: space-between;
+  column-gap: 1.7rem;
+  transition: ${(props) => `${props.$trans}s`};
+`;
 
 const SecondContainer = styled.div` 
     border : 1px solid black;
@@ -53,8 +78,8 @@ const FirstContainer = styled.div`
 `
 
 const ReducerTypes = {
-    FType1 : {content : "", valid : true},
-    FType2 : {content : "", valid : true}
+    FType1: { content: "", valid: true },
+    FType2: { content: "", valid: true }
 }
 
 const SubmitButton = styled.div`
@@ -94,49 +119,86 @@ export interface Types1 {
 
 const FormInformationReducer = (
     state: Types1,
-    action: { type: string ; value: string ,valid?:boolean }
-  ) => {
+    action: { type: string; value: string, valid?: boolean }
+) => {
     const NewState = { ...state };
-    if(action.valid!==undefined)
-    {
-      if(action.type==="FType1")
-      NewState.FType2.valid=action.valid;
-      else if(action.type==="FType1")
-      NewState.FType2.valid=action.valid;
+    if (action.valid !== undefined) {
+        if (action.type === "FType1")
+            NewState.FType2.valid = action.valid;
+        else if (action.type === "FType1")
+            NewState.FType2.valid = action.valid;
     }
-    else{
-    if (action.type === "FType1" && typeof action.value === "string") {NewState.FType1.content = action.value; NewState.FType1.valid=true}
-    else if (action.type === "FType2"  && typeof action.value === "string") {NewState.FType2.content = action.value; NewState.FType2.valid=true}
+    else {
+        if (action.type === "FType1" && typeof action.value === "string") { NewState.FType1.content = action.value; NewState.FType1.valid = true }
+        else if (action.type === "FType2" && typeof action.value === "string") { NewState.FType2.content = action.value; NewState.FType2.valid = true }
     }
     return NewState;
-  };
+};
 
 const DiscoverPage = () => {
     const SelectCountry = ["India", "Srilanka", "Pakistan"];
     const SelectCity = ["Kosli", "Bhadra", "Muzzafarnagar", "Hanumangarh"]
     const SelectCategory = ["Medical", "Education", "Sports"]
     const FundingType = ["Country", "City", "Category"];
+    const [Fundrasiers, SetFundraisers] = useState<RequiredFormat[]>([]);
+    const [Shifts, MoveShifts] = useState<number>(0);
+    const [trans, SetTrans] = useState<number>(0.5);
+
+
+    const pagesize = 10;
+    const pagenumber = 0;
+    
+    const [FormInfo, SetFormInfo] = useReducer(
+        FormInformationReducer,
+        ReducerTypes as Types1
+    );
+    useEffect(() => {
+        async function getfundraisers() {
+            // country
+            // value
+            let Url;
+            switch(FormInfo.FType1.content){
+                case "category":
+                    Url = urlFunctions.GetFilteredFundraisers(FormInfo.FType2.content, pagesize, pagenumber, "null", 'null')
+                    break;
+                case "city":
+                    Url = urlFunctions.GetFilteredFundraisers('null', pagesize, pagenumber, FormInfo.FType2.content, 'null')
+                    break;
+                case "country":
+                    Url = urlFunctions.GetFilteredFundraisers('null', pagesize, pagenumber, 'null' ,FormInfo.FType2.content);
+                    break;
+                default:
+                    Url = urlFunctions.GetFilteredFundraisers('null', pagesize, pagenumber, 'null', 'null')
+            }
+            Url = urlFunctions.GetFilteredFundraisers("Medical", pagesize, pagenumber, "null", 'null')
+            const res = await API.sendGetRequest(Url,
+            );
+            if (res.success) {
+                const MappedData = await GetFundraisersMapped(res.data.content)
+                SetFundraisers(MappedData)
+            }
+        }
+        getfundraisers()
+    }, [FormInfo.FType2.content])
+
+
 
     const [CType, CtypeFn] = useState<Array<string>>(
         SelectCountry
     )
     const ChooseType = (type: string, value: string) => {
         SetFormInfo({ type: type, value: value });
-        if(value === "Country"){
+        if (value === "Country") {
             CtypeFn(SelectCountry)
-        }else if(value === "City"){
+        } else if (value === "City") {
             CtypeFn(SelectCity)
-        }else{
+        } else {
             CtypeFn(SelectCategory)
         }
     }
-    const [FormInfo, SetFormInfo] = useReducer(
-        FormInformationReducer,
-        ReducerTypes as Types1
-    );
 
-    const handelSubmit = () =>{
-        if (FormInfo.FType1.content === "" || FormInfo.FType2.content === ""){
+    const handelSubmit = () => {
+        if (FormInfo.FType1.content === "" || FormInfo.FType2.content === "") {
             return;
         }
         console.log("Submitting form...", FormInfo);
@@ -144,14 +206,14 @@ const DiscoverPage = () => {
     return (
         <MainContainer>
             <FirstContainer>
-                <DummyConatiner> 
+                <DummyConatiner>
                     <SelectContainer>
                         <TextContainer><p>Search Campaigns by </p></TextContainer>
 
                         <Select
                             item={FundingType}
                             ChangeFunc={(type: string, value: string) => {
-                            ChooseType(type,value);
+                                ChooseType(type, value);
                             }}
                             type="FType1"
                             value={FormInfo.FType1.content}
@@ -163,11 +225,11 @@ const DiscoverPage = () => {
 
 
                     <SelectContainer>
-                    <TextContainer><p>In</p></TextContainer>
+                        <TextContainer><p>In</p></TextContainer>
                         <Select
                             item={CType}
                             ChangeFunc={(type: string, value: string) => {
-                            SetFormInfo({ type: type, value: value });
+                                SetFormInfo({ type: type, value: value });
                             }}
                             type="FType2"
                             value={FormInfo.FType2.content}
@@ -177,11 +239,18 @@ const DiscoverPage = () => {
                     </SelectContainer>
 
                 </DummyConatiner>
-                
-                <ButtonContainer><SubmitButton onClick={handelSubmit}>Search</SubmitButton></ButtonContainer>               
+
+                <ButtonContainer><SubmitButton onClick={handelSubmit}>Search</SubmitButton></ButtonContainer>
 
             </FirstContainer>
-            <SecondContainer> </SecondContainer>
+            <SecondContainer>
+                <MovContainer $width={Shifts} $trans={trans}>
+                    {Fundrasiers.length > 0 &&
+                        Fundrasiers.map((item, index) => (
+                            <PostCard Data={item}></PostCard>
+                        ))}
+                </MovContainer>
+            </SecondContainer>
         </MainContainer>
     );
 }
