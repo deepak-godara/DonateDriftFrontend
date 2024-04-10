@@ -1,11 +1,9 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { SuccessFulls } from "./SuccessFullFunds";
 import Category from "./Category";
 import { useEffect } from "react";
 import DonationCard from "../DonationCard";
 import { FilteredFundRaisers } from "../../backendApi/services/GetFilteredFundRaisers";
-import Main from "../FundRaisalForm/FormContainer/FormPart1/main";
 import { RequiredFormat } from "../DonationCard/main";
 import { MdArrowBackIos } from "react-icons/md";
 import { MdArrowForwardIos } from "react-icons/md";
@@ -19,12 +17,9 @@ const MainContainer1 = styled.div`
 const MainContainer = styled.div`
   width: 90%;
   height: 30rem;
-  // width:auto;
   display: flex;
   position: relative;
   flex-direction: row;
-  // flex-wrap:wrap;
-  // overflow-x:;
   padding: 0rem 0rem 1.5rem 0rem;
   justify-content: space-between;
   column-gap: 1.5rem;
@@ -33,7 +28,7 @@ const MainContainer = styled.div`
 `;
 interface InputWidth {
   $width: number;
-  $trans:number;
+  $trans: number;
 }
 const MovContainer = styled.div<InputWidth>`
   width: auto;
@@ -51,29 +46,29 @@ const MovContainer = styled.div<InputWidth>`
 const Forwardiv = styled.div`
   position: absolute;
   right: -0%;
-  box-shadow: 0 10px 30px rgba(0,0,0,.23);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.23);
   z-index: 500;
-  border-radius:50%;
-  background:white;
-  width:2.5rem;
-  height:2.5rem;
-  display:flex;
-  align-items:center;
-  padding-left:0.25rem;
+  border-radius: 50%;
+  background: white;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  padding-left: 0.25rem;
   top: 50%;
 `;
 const Backwardiv = styled.div`
   position: absolute;
-  box-shadow: 0 10px 30px rgba(0,0,0,.25);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
   left: -0%;
   top: 50%;
-  padding-left:0.55rem;
-  width:2.5rem;
-  height:2.5rem;
-  display:flex;
-  align-items:center;
-  border-radius:50%;
-  background:white;
+  padding-left: 0.55rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  border-radius: 50%;
+  background: white;
   z-index: 500;
 `;
 function SuccessFull() {
@@ -82,7 +77,7 @@ function SuccessFull() {
   const [Moved, SetMoved] = useState<number>(0);
   const [MaxShifts, SetShifts] = useState<number>(0);
   const [Shifts, MoveShifts] = useState<number>(0);
-  const [trans,SetTrans]=useState<number>(0.5);
+  const [trans, SetTrans] = useState<number>(0.5);
   useEffect(() => {
     async function getfundraisers() {
       const data = await FilteredFundRaisers(Categorys, "null", "null", 10, 0);
@@ -102,8 +97,9 @@ function SuccessFull() {
       SetShifts(data.data.length - 2);
       SetMoved(0);
       MoveShifts(0);
-      setTimeout(()=>{ SetTrans(0.5);},500);
-     
+      setTimeout(() => {
+        SetTrans(0.5);
+      }, 500);
     }
   };
   const ShiftContainer = (val: number) => {

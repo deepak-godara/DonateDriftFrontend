@@ -1,7 +1,17 @@
-import React, { useReducer, useRef, useState } from "react";
+import React, {
+  useReducer,
+  useRef,
+  useState,
+  useEffect,
+  useContext,
+} from "react";
+import "./EditorProfile.css"
 import Forminput from "../../FunctionalCompos/input";
+import UserContext from "../../Store/AuthUser";
 import Select from "../../FunctionalCompos/Select";
 import styled from "styled-components";
+import Loader from "react-js-loader";
+import { UpdateProfile } from "../../backendApi/services/EditProfile";
 import { CiCamera } from "react-icons/ci";
 
 const Inp = styled.input`
@@ -84,12 +94,6 @@ const DataHeading = styled.div`
   font-weight: 700;
   line-height: 1.5;
 `;
-
-const NameDiv = styled.div`
-  width: 100%;
-  margin-bottom: 28px;
-`;
-
 const DPDiv = styled.div`
   width: 45%;
   margin-top: 2rem;
@@ -102,11 +106,14 @@ const LineDiv = styled.div`
 `;
 const SubmitContainer = styled.div`
   width: 100%;
-  display : flex;
-  flex-direction : row;
-  justify-content : space-around;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+`;
+const LoaderDiv=styled.div`
+position:absolute;
+top:-1.1rem;
 `
-
 const ErrorMessage = styled.p`
   margin: 0;
   width: 30%;
@@ -200,7 +207,6 @@ const PhotoContainer1 = styled.img<widthprops>`
   border-radius: 12px;
   display: ${(props) => (props.$displays ? "block" : "none")};
 `;
-const ImageContainer = styled.div``;
 const ReducerTypes = {
   UserName: { content: "", valid: true },
   ProfilePhoto: { content: null, valid: true },
@@ -227,7 +233,7 @@ const FormInformationReducer = (
   state: ProfileType,
   action: {
     type: string | File;
-    value: string | File;
+    value: string | File | null;
     valid?: boolean;
     value2?: string;
   }
@@ -259,7 +265,10 @@ const FormInformationReducer = (
     } else if (action.type === "AboutMe" && typeof action.value === "string") {
       NewState.AboutMe.content = action.value;
       NewState.AboutMe.valid = true;
-    } else if (action.type === "ProfilePhoto" && action.value instanceof File) {
+    } else if (
+      (action.type === "ProfilePhoto" && action.value instanceof File) ||
+      action.value === null
+    ) {
       NewState.ProfilePhoto.content = action.value;
       NewState.ProfilePhoto.valid = true;
       if (action.value2) NewState.Images.content = action.value2;
@@ -277,11 +286,23 @@ const FormInformationReducer = (
 function EditFormInput() {
   const Country = ["India", "Srilanka", "Pakistan"];
   const photoref = useRef<HTMLInputElement>(null);
+  const Usercontext = useContext(UserContext);
   const [errorMessage, setErrorMessage] = useState("");
   const [FormInfo, SetFormInfo] = useReducer(
     FormInformationReducer,
     ReducerTypes as ProfileType
   );
+  const [Loading, SetLoading] = useState<boolean>(false);
+  useEffect(() => {
+    SetFormInfo({ type: "UserName", value: Usercontext.UserName });
+    SetFormInfo({ type: "AboutMe", value: Usercontext.UserAbout?Usercontext.UserAbout:"" });
+    SetFormInfo({ type: "Password", value:"" });
+    SetFormInfo({ type: "City", value: Usercontext.UserCity?Usercontext.UserCity:" " });
+    SetFormInfo({ type: "Country", value:Usercontext.UserCountry?Usercontext.UserCountry:" "  });
+    SetFormInfo({ type: "ProfilePhoto", value: Usercontext.UserPhoto?Usercontext.UserPhoto:null });
+
+    SetFormInfo({ type: "ConfirmPassword", value: "" });
+  }, []);
   const handleAddImageClick = () => {
     if (photoref.current) photoref.current.click();
   };
@@ -301,7 +322,7 @@ function EditFormInput() {
     }
   };
 
-  const handelSubmit = () => {
+  const handelSubmit = async () => {
     let count = 0;
     if (FormInfo.UserName.content === "") {
       SetFormInfo({ type: "UserName", valid: false, value: "" });
@@ -335,6 +356,11 @@ function EditFormInput() {
       count++;
     }
     if (count === 0) {
+      if (Usercontext.UserId) {
+        SetLoading(true);
+        const data = await UpdateProfile(FormInfo, Usercontext.UserId);
+        SetLoading(false);
+      }
     } else {
       setErrorMessage("Please fill in all the required fields");
     }
@@ -459,21 +485,36 @@ function EditFormInput() {
         </Content1>
         <LineDiv></LineDiv>
 
-                <SubmitContainer>
-                    <SubmitButton onClick={handelSubmit}>Submit</SubmitButton>
-                </SubmitContainer>
-
-            </DataContainer>
-            <Inp 
-                        ref={photoref}
-                        type="file"
-                        accept="image/*"
-                        style={{ display: "none" }}
-                        onChange={handleFileChange}
-                        name = "ProfilePhoto"
-                        ></Inp>
-        </EditContainer>
-    )
+        <SubmitContainer>
+          <SubmitButton onClick={handelSubmit}>
+            {Loading && (
+                <LoaderDiv>
+              <Loader
+                type="spinner-cub"
+                color="white"
+                style={{ position:"absolute"}}
+               
+                bottom="0.2rem"
+                bgColor="white"
+                title={"spinner-cub"}
+                size={50}
+              ></Loader>
+              </LoaderDiv>
+            )}
+            {!Loading && "Submit"}
+          </SubmitButton>
+        </SubmitContainer>
+      </DataContainer>
+      <Inp
+        ref={photoref}
+        type="file"
+        accept="image/*"
+        style={{ display: "none" }}
+        onChange={handleFileChange}
+        name="ProfilePhoto"
+      ></Inp>
+    </EditContainer>
+  );
 }
 
 export default EditFormInput;

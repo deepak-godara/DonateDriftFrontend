@@ -1,12 +1,16 @@
 import React, { useEffect, useReducer, useState } from "react";
 import UserContext from "./AuthUser";
 import Cookies from "js-cookie";
+import { RequiredFormat } from "../component/DonationCard/main";
 import { GetUserData } from "../backendApi/services/GetUserData";
+import UserFundrasiers from "../component/UserFundrasiers";
 // import { VerifyUser } from "../backendApi/services/VerifyUser";
 const InitialState = {
   isAuth: false,
   UserId:null,
+  UserAbout:null,
   UserEmail: null,
+  UserFundRaisers:[],
   UserName: null,
   UserPhoto: null,
   UserCity: null,
@@ -16,6 +20,10 @@ const InitialState = {
 export interface InitialUserType {
   isAuth: boolean;
   UserId:number|null;
+  UserAbout:string|null;
+  UserFundRaisers:Array<RequiredFormat 
+  
+ >;
   UserEmail: string | null;
   UserName: string | null;
   UserPhoto: string | null;
@@ -31,14 +39,18 @@ const AddUserReducer = (
   if (action.type === "login" && action.payload) {
     newState.isAuth = true;
     newState.UserId = action.payload.UserId;
+    newState.UserAbout=action.payload.UserAbout;
     newState.UserEmail = action.payload.UserEmail;
     newState.UserName = action.payload.UserName;
     newState.UserPhoto = action.payload.UserPhoto;
     newState.UserCity = action.payload.UserCity;
+    newState.UserFundRaisers=action.payload.UserFundRaisers
     newState.UserCountry = action.payload.UserCountry;
   } else if (action.type === "logout") {
     newState.isAuth = false;
     newState.UserId = null;
+    newState.UserAbout=null;
+    newState.UserFundRaisers=[];
     newState.UserEmail = null;
     newState.UserName = null;
     newState.UserPhoto = null;
@@ -66,6 +78,8 @@ function AuthUserProvider(props: any) {
   const UserCtx = {
     isAuth: UserData.isAuth,
     UserId:UserData.UserId,
+    UserAbout:UserData.UserAbout,
+    UserFundRaisers:UserData.UserFundRaisers,
     UserName: UserData.UserName,
     UserEmail: UserData.UserEmail,
     UserPhoto: UserData.UserPhoto,

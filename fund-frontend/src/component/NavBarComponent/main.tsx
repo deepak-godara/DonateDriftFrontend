@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import styled from 'styled-components'
 import { useCombobox } from "downshift";
+import UserContext from '../../Store/AuthUser';
 import { ItemArray } from '../../User/UserItem';
 import LogOut from './LogOut';
 import { Link } from 'react-router-dom';
@@ -86,7 +87,7 @@ justify-content:flex-start;
 align-items:center;
 column-gap:1rem
 `
-const ImageContainer=styled.div`
+const ImageContainer=styled.img`
 height:2.5rem;
 width:2.5rem;
 background:#eef5fe;
@@ -168,6 +169,7 @@ function Main() {
       } = useCombobox({
         items: ItemArray,
       });
+      const usercontext=useContext(UserContext);
   return (
     <MainContainer>
         <Container1>
@@ -182,8 +184,8 @@ function Main() {
             <SubContainer2>
                 <Sub2Element>Start Fundraising</Sub2Element>
                 <ProfileContainer>
-                    <ImageContainer></ImageContainer>
-                    <DropDownContainer {...getToggleButtonProps()}>Deepak</DropDownContainer>
+                    <ImageContainer src={usercontext.UserPhoto?usercontext.UserPhoto:"none"}></ImageContainer>
+                    <DropDownContainer {...getToggleButtonProps()}>{usercontext.UserName}</DropDownContainer>
                     <DropDown
         {...getMenuProps()}
         style={{ listStyle: "none", display: isOpen ? "flex" : "none" }}

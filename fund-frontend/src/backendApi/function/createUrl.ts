@@ -17,4 +17,5 @@ export const urlFunctions = {
   ) =>
     `${baseUri}/api/fundraisers/filter?country=${country}&city=${city}&category=${category}&pageSize=${pagesize}&pageNumber=${pagenumber}`,
   GetUserDataUrl: () => `${baseUri}/auth/token`,
+  EditProfileUrl:(Id:number)=>`${baseUri}/api/user/update/${Id}`
 };
