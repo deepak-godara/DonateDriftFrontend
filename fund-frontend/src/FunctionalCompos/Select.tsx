@@ -29,6 +29,7 @@ const SelectButton = styled.button<InputColot>`
   position: relative;
   border:${(props) => (props.$valid?"1px solid #eaebee":"1px solid red")};
   padding: 0.5rem;
+  margin-top:0.3rem;
   font-size: 16px;
   line-height: 170%;
   color: #2f435a;
@@ -36,7 +37,7 @@ const SelectButton = styled.button<InputColot>`
   width: 100%;
   display: flex;
   align-items: center;
-  padding: 8px 0px 8px 20px;
+  padding: 10px 0px 9px 20px;
   border-radius: 12px;
   background: none;
 `;
@@ -102,6 +103,7 @@ interface proptypes {
   item: Array<String>;
   label: String;
   type:string;
+  width?:string;
   value:string;
   valid:boolean;
   ChangeFunc:(value:string,type:string)=>void;
@@ -129,7 +131,7 @@ function Select(props: proptypes) {
   });
 
   return (
-    <MainContainer {...getToggleButtonProps()} $width="300px">
+    <MainContainer {...getToggleButtonProps()} $width={props.width?props.width:"300px"}>
       <SelectLabel>{props.label}</SelectLabel>
       <SelectButton $valid={props.valid}>
         {props.value!==""?props.value:"Please Select"}

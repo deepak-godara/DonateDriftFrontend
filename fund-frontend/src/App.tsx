@@ -5,6 +5,8 @@ import UserLayout from "./Layouts/UserLayout";
 import FundRaisalForm from "./component/FundRaisalForm";
 import Navbar from "./component/NavBar/navbar";
 import HomePage from "./component/HomePage";
+import AuthUserProvider from "./Store/AuthClientProvider";
+import EditFormInput from "./component/ProfileEditPage/editForm";
 import NavBarComponent from "./component/NavBarComponent";
 import DonateMainPage from "./component/DonateMainPage";
 import DonateForm from "./component/DonateMoneyForm/DonateForm";
@@ -13,7 +15,7 @@ import { Routes, Route } from "react-router-dom";
 import Authentication from "./component/Authentication";
 import SignUp from "./component/Authentication/SignUp";
 import Cookies from "js-cookie";
-import EditFormInput from "./component/ProfileEditPage/editForm";
+// import EditFormInput from "./component/ProfileEditPage/editForm";
 import DiscoverPage from "./component/DiscoverPage/main";
 function App() {
   const [Token, SetToken] = useState<boolean>(false);
@@ -32,6 +34,7 @@ function App() {
     getLoginStatus();
   });
   return (
+<AuthUserProvider>
     <Router>
     <Routes>
     
@@ -42,6 +45,7 @@ function App() {
             <Route path="/Fundraise" element={<FundRaisalForm/>}/>
             <Route path="/discover" element={<DiscoverPage/>}/>
             <Route path="fundraiser/:id" element={<DonateMainPage/>}/>
+            <Route path="profile" element={<EditFormInput/>}/>
           </Route>
        
         </>
@@ -54,6 +58,7 @@ function App() {
       )}
     </Routes>
     </Router>
+    </AuthUserProvider>
   );
 }
 

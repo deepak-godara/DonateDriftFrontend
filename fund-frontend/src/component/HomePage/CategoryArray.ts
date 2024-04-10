@@ -1,5 +1,5 @@
 export const CategoryArray = [
-  { content: "Volunteer & Travel"},
-  { content: "Charity & Nonprofits" },
-  { content: "Personal" },
+  { content: "Education"},
+  { content: "Sports" },
+  { content: "Medical" },
 ];

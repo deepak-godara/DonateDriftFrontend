@@ -1,10 +1,10 @@
 import { urlFunctions } from "../function/createUrl";
 import { API } from "../API";
 // import Cookies from "js-cookie";
-import { InitialStateType } from "../../Store/AuthClientProvider";
+import { InitialUserType } from "../../Store/AuthClientProvider";
 interface UserData {
   success: boolean;
-  data: InitialStateType|null;
+  data: InitialUserType|null;
 }
 export async function VerifyUser(token: string): Promise<UserData> {
   const Url = urlFunctions.VerifyUserUri();

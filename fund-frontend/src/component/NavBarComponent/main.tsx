@@ -102,7 +102,7 @@ font-size: 14px;
 const DropDown = styled.ul`
   position: absolute;
   left: -120px;
-  z-index:100;
+  z-index:105;
 //   right: -1px;
   top: 55px;
   width:13rem;
@@ -191,7 +191,7 @@ function Main() {
                 {isOpen&&(
                     <>
                     {ItemArray.map((item, index) => (
-                        <Link to="h" style={{textDecoration:"none"}}>
+                        <Link to={item.Link} style={{textDecoration:"none"}}>
               <ListItem
                 {...getItemProps({
                   key: index,

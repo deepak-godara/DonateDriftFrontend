@@ -5,18 +5,22 @@ import { IoSettingsOutline } from "react-icons/io5";
 export  const ItemArray=[
     {
         Icon: IoCreateOutline,
-        Content:"Create new campaign"
+        Content:"Create new campaign",
+        Link:"/profile"
     },
     {
         Icon:MdOutlineDashboardCustomize,
-        Content:"My dashboard"
+        Content:"My dashboard",
+        Link:"/profile"
     },
     {
         Icon:RiRefund2Line,
-        Content:"Funded campaigns"
+        Content:"Funded campaigns",
+        Link:"/profile"
     },
     {
         Icon:IoSettingsOutline,
-        Content:"Profile settings"
+        Content:"Profile settings",
+        Link:"/profile"
     },
 ]
