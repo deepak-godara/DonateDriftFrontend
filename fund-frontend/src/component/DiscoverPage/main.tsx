@@ -170,6 +170,7 @@ const DiscoverPage = () => {
                 default:
                     Url = urlFunctions.GetFilteredFundraisers('null', pagesize, pagenumber, 'null', 'null')
             }
+            // test url, remove the below line later
             Url = urlFunctions.GetFilteredFundraisers("Medical", pagesize, pagenumber, "null", 'null')
             const res = await API.sendGetRequest(Url,
             );
