@@ -102,10 +102,10 @@ const LineDiv = styled.div`
 `;
 const SubmitContainer = styled.div`
   width: 100%;
-  display: flex;
-  flex-directio: row;
-  justify-content: space-around;
-`;
+  display : flex;
+  flex-direction : row;
+  justify-content : space-around;
+`
 
 const ErrorMessage = styled.p`
   margin: 0;
@@ -459,20 +459,21 @@ function EditFormInput() {
         </Content1>
         <LineDiv></LineDiv>
 
-        <SubmitContainer>
-          <SubmitButton onClick={handelSubmit}>Submit</SubmitButton>
-        </SubmitContainer>
-      </DataContainer>
-      <Inp
-        ref={photoref}
-        type="file"
-        accept="image/*"
-        style={{ display: "none" }}
-        onChange={handleFileChange}
-        name="ProfilePhoto"
-      ></Inp>
-    </EditContainer>
-  );
+                <SubmitContainer>
+                    <SubmitButton onClick={handelSubmit}>Submit</SubmitButton>
+                </SubmitContainer>
+
+            </DataContainer>
+            <Inp 
+                        ref={photoref}
+                        type="file"
+                        accept="image/*"
+                        style={{ display: "none" }}
+                        onChange={handleFileChange}
+                        name = "ProfilePhoto"
+                        ></Inp>
+        </EditContainer>
+    )
 }
 
 export default EditFormInput;

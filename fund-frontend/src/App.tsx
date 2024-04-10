@@ -16,6 +16,7 @@ import Authentication from "./component/Authentication";
 import SignUp from "./component/Authentication/SignUp";
 import Cookies from "js-cookie";
 // import EditFormInput from "./component/ProfileEditPage/editForm";
+import DiscoverPage from "./component/DiscoverPage/main";
 function App() {
   const [Token, SetToken] = useState<boolean>(false);
   const [Display, SetDisplay] = useState<boolean>(false);
@@ -42,6 +43,7 @@ function App() {
           <Route path="" element={<UserLayout />}>
             <Route index element={<HomePage/>}/>
             <Route path="/Fundraise" element={<FundRaisalForm/>}/>
+            <Route path="/discover" element={<DiscoverPage/>}/>
             <Route path="fundraiser/:id" element={<DonateMainPage/>}/>
             <Route path="profile" element={<EditFormInput/>}/>
           </Route>
