@@ -95,7 +95,7 @@ function Donation() {
       }
     }
     GetFundrasierDetails();
-  });
+  },[]);
   return (
     <MainContainer>
       {Display&&DonateData&&

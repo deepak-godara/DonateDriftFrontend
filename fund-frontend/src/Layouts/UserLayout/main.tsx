@@ -3,8 +3,10 @@ import styled from "styled-components";
 import { Outlet } from "react-router-dom";
 import NavBarComponent from "../../component/NavBarComponent";
 const MainContainer = styled.div`
-  width: 55rem;
+  width: 60rem;
   max-width: 95%;
+  position:relative;
+  z-index:100;
 margin:0rem auto;
   box-sizing: border-box;
 `;
@@ -14,6 +16,8 @@ const NavContainer = styled.div`
 `;
 const BodyContainer=styled.div`
 width:100%;
+position:relative;
+z-index:100;
 boc-sizing:border-box;
 `
 function main() {

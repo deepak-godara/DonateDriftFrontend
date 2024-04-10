@@ -70,7 +70,7 @@ margin-bottom: 20px;
         htmlContent: string;
       }
     
-      const YourComponent: React.FC<YourComponentProps> = ({ htmlContent }) => {
+      export const YourComponent: React.FC<YourComponentProps> = ({ htmlContent }) => {
         const createMarkup = () => {
           return { __html: htmlContent }
         };
@@ -136,7 +136,7 @@ function Main(props:propTypes) {
     </PhotosContainer2>
     <StoryContainer>
       <StoryName> Campaign Story</StoryName>
-    <YourComponent htmlContent={yourHTMLString} />
+    <YourComponent htmlContent={props.FundRaiserStory} />
     </StoryContainer>
     <Donors Donors={props.Donors}/>
     </div>

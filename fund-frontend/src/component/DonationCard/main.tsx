@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { useEffect,useState } from 'react'
 import { useNavigate } from 'react-router-dom';
+import { YourComponent } from '../DonateMainPage/DonateData2/LeftContainer/Story/main';
 import {FetchFundRaisers} from "../../backendApi/services/FundRasierFetch";
 import Main from '../FundRaisalForm/FormContainer/FormPart1/main'
 const MainContainer1=styled.div`
@@ -13,12 +14,13 @@ width:100%;
 display:flex;
 flex-direction:row;
 overflow-x:hidden;
+flex-wrap:wrap;
 padding:0rem 0rem 1.5rem 0rem;
 justify-content:space-between;
 column-gap:1.5rem;
 `
-const PostContainer=styled.button`
-width:300px;
+const PostContainer=styled.div`
+width:285px;
 display:flex;
 box-shadow: 0 10px 30px rgba(0,0,0,.08);
 flex-direction:column;
@@ -105,7 +107,7 @@ export interface ProptypesDonationCard{
   Category:String,
   Country:String,
   FundraiserTitle:String,
-  Story:String,
+  Story:string,
   Amount:number,
   Percentage:number,
   NumberofDonors:number,
@@ -117,7 +119,7 @@ export interface RequiredFormat{
     Category:String,
     Country:String,
     FundraiserTitle:String,
-    Story:String,
+    Story:string,
     Amount:number,
     Percentage:number,
     NumberofDonors:number,
@@ -139,7 +141,6 @@ const Navigate=useNavigate();
           console.log('d')
           setImageData(URL.createObjectURL(blob));
         } catch (error) {
-            console.log(error)
           console.error('Error loading image:', error);
         }
       };
@@ -157,7 +158,7 @@ const Navigate=useNavigate();
   return (
     <PostContainer onClick={GotoFundraiser}>
         {/* {imageData!=null&& */}
-    <ImageContainer src={data}></ImageContainer>
+    <ImageContainer src={props.Data.MainCover}></ImageContainer>
     {/* } */}
     <DataContainer>
         <NameContainer>
@@ -165,7 +166,7 @@ const Navigate=useNavigate();
             <CountryData>{props.Data.Country}</CountryData>
         </NameContainer>
         <SecondData>{props.Data.FundraiserTitle}</SecondData>
-        <ThirdData>{props.Data.Story}</ThirdData>
+        <ThirdData><YourComponent htmlContent={props.Data.Story} /></ThirdData>
         <LastData>
             <AmountDiv>{props.Data.Amount} raised</AmountDiv>
             <PercentageDiv>{props.Data.Percentage}%funded</PercentageDiv>

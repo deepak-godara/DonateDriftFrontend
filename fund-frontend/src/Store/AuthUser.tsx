@@ -1,11 +1,12 @@
 import React from "react";
-import { InitialStateType } from "./AuthClientProvider";
-const UserContext=React.createContext<InitialStateType>({
+import { InitialUserType } from "./AuthClientProvider";
+const UserContext=React.createContext<InitialUserType>({
 isAuth : false,
-Name : "",
+UserId:null,
 UserEmail : "",
 UserName : "",
-UserDob : "",
-UserGender : "",
+UserPhoto: "",
+UserCity : "",
+UserCountry:""
 })
 export default UserContext;

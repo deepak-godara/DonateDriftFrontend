@@ -1,45 +1,49 @@
 import React, { useEffect, useReducer, useState } from "react";
 import UserContext from "./AuthUser";
 import Cookies from "js-cookie";
-import { VerifyUser } from "../backendApi/services/VerifyUser";
+import { GetUserData } from "../backendApi/services/GetUserData";
+// import { VerifyUser } from "../backendApi/services/VerifyUser";
 const InitialState = {
   isAuth: false,
-  Name: undefined,
-  UserEmail: undefined,
-  UserName: undefined,
-  UserGender: undefined,
-  UserDob: undefined,
+  UserId:null,
+  UserEmail: null,
+  UserName: null,
+  UserPhoto: null,
+  UserCity: null,
+  UserCountry: null,
 };
 
-export interface InitialStateType {
+export interface InitialUserType {
   isAuth: boolean;
-  Name: string | undefined;
-  UserEmail: string | undefined;
-  UserName: string | undefined;
-  UserGender?: string | undefined;
-  UserDob?: string | undefined;
+  UserId:number|null;
+  UserEmail: string | null;
+  UserName: string | null;
+  UserPhoto: string | null;
+  UserCity: string | null;
+  UserCountry: string | null;
 }
 
 const AddUserReducer = (
-  state: InitialStateType,
-  action: { type: string; payload: InitialStateType | null }
-): InitialStateType => {
+  state: InitialUserType,
+  action: { type: string; payload: InitialUserType | null }
+): InitialUserType => {
   const newState = { ...state };
   if (action.type === "login" && action.payload) {
     newState.isAuth = true;
-    newState.Name = action.payload.Name;
+    newState.UserId = action.payload.UserId;
     newState.UserEmail = action.payload.UserEmail;
     newState.UserName = action.payload.UserName;
-    if (action.payload.UserDob) newState.UserDob = action.payload.UserDob;
-    if (action.payload.UserGender)
-      newState.UserGender = action.payload.UserGender;
+    newState.UserPhoto = action.payload.UserPhoto;
+    newState.UserCity = action.payload.UserCity;
+    newState.UserCountry = action.payload.UserCountry;
   } else if (action.type === "logout") {
     newState.isAuth = false;
-    newState.Name = undefined;
-    newState.UserEmail = undefined;
-    newState.UserName = undefined;
-    newState.UserDob = undefined;
-    newState.UserGender = undefined;
+    newState.UserId = null;
+    newState.UserEmail = null;
+    newState.UserName = null;
+    newState.UserPhoto = null;
+    newState.UserCity = null;
+    newState.UserCountry = null;
   }
   return newState;
 };
@@ -47,11 +51,11 @@ const AddUserReducer = (
 function AuthUserProvider(props: any) {
   const [UserData, SetUserData] = useReducer(
     AddUserReducer,
-    InitialState as InitialStateType
+    InitialState as InitialUserType
   );
   const [loading, SetLoading] = useState(false);
 
-  const LoginUser = (event: InitialStateType) => {
+  const LoginUser = (event: InitialUserType) => {
     SetUserData({ type: "login", payload: event });
   };
 
@@ -61,24 +65,31 @@ function AuthUserProvider(props: any) {
 
   const UserCtx = {
     isAuth: UserData.isAuth,
-    Name: UserData.Name,
+    UserId:UserData.UserId,
     UserName: UserData.UserName,
     UserEmail: UserData.UserEmail,
-    UserDob: UserData.UserDob,
-    UserGender: UserData.UserGender,
+    UserPhoto: UserData.UserPhoto,
+    UserCity: UserData.UserCity,
+    UserCountry: UserData.UserCountry,
     LoginUser: LoginUser,
     LogOutUser: LogOutUser,
   };
 
   async function getLoginStatus() {
     const token = Cookies.get("token");
+    console.log(token)
     if (!token) {
       SetLoading(true);
     } else {
-      const res = await VerifyUser(token);
-      if(res.success)
-      {
-        SetUserData({type:"login",payload:res.data});
+      let chunk = token.split(/\./);
+      const header = chunk[0];
+      const payload = chunk[1];
+      const res = await GetUserData(header, payload);
+      if (res.success) {
+        SetUserData({ type: "login", payload: res.data });
+        setTimeout(() => {
+          SetLoading(true);
+        }, 200);
       }
     }
   }
@@ -93,6 +104,8 @@ function AuthUserProvider(props: any) {
         {props.children}
       </UserContext.Provider>
     );
+    else
+    return <></>
 }
 
 export default AuthUserProvider;

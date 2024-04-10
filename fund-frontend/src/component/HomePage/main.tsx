@@ -5,7 +5,9 @@ import SuccessFull from './SuccessFull'
 import HomeCategory from './CategoryHome'
 import styled from 'styled-components'
 const MainContainer=styled.div`
-width:100%;
+// width:100%;
+position:relative;
+z-index:100;
 `
 function main() {
   return (
