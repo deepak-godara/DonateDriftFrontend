@@ -105,9 +105,9 @@ const LineDiv = styled.div`
 const SubmitContainer = styled.div`
   width: 100%;
   display : flex;
-  flex-directio : row;
+  flex-direction : row;
   justify-content : space-around;
-`;
+`
 
 const ErrorMessage = styled.p`
     margin : 0;
@@ -356,7 +356,7 @@ function EditFormInput(){
             <Inp 
                         ref={photoref}
                         type="file"
-                        accept="image/*"
+                        accept="image*"
                         style={{ display: "none" }}
                         onChange={handleFileChange}
                         name = "ProfilePhoto"
