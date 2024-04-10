@@ -7,6 +7,7 @@ import { API } from '../../backendApi/API'
 import { urlFunctions } from '../../backendApi/function/createUrl'
 import { GetFundraisersMapped } from '../../backendApi/MapperFunctions/FundRaisers'
 import { BsBraces } from "react-icons/bs";
+import { Form } from "react-router-dom";
 
 
 interface InputWidth {
@@ -19,9 +20,9 @@ const MovContainer = styled.div<InputWidth>`
   display: flex;
   top: 0rem;
   left: ${(props) => `-${props.$width}rem`};
-  position: absolute;
   margin-left: 1.55rem;
   flex-direction: row;
+  flex-wrap : wrap;
   padding: 0rem 0rem 1.5rem 0rem;
   justify-content: space-between;
   column-gap: 1.7rem;
@@ -29,8 +30,11 @@ const MovContainer = styled.div<InputWidth>`
 `;
 
 const SecondContainer = styled.div` 
-    border : 1px solid black;
+    /* border : 1px solid black; */
+    margin-top : 1rem;
     width : 100%;
+    display : flex;
+    flex-direction : row;
 `
 
 const ButtonContainer = styled.div`
@@ -57,16 +61,20 @@ const SelectContainer = styled.div`
     display : flex;
     flex-direction : row;
     margin-bottom : 10px;
+    justify-content : space-around;
 `
 
 const DummyConatiner = styled.div`
     width : 100%;
     display : flex;
     flex-direction : column;
+    align-items : center;
 `
 
 const MainContainer = styled.div`
     width : 100%;
+    display : flex;
+    flex-direction: column; 
 `
 
 const FirstContainer = styled.div`
@@ -143,6 +151,7 @@ const DiscoverPage = () => {
     const [Fundrasiers, SetFundraisers] = useState<RequiredFormat[]>([]);
     const [Shifts, MoveShifts] = useState<number>(0);
     const [trans, SetTrans] = useState<number>(0.5);
+    let count = 0;
 
 
     const pagesize = 10;
@@ -154,27 +163,41 @@ const DiscoverPage = () => {
     );
     useEffect(() => {
         async function getfundraisers() {
-            // country
-            // value
             let Url;
+            console.log(FormInfo)
             switch(FormInfo.FType1.content){
-                case "category":
+                case "Category":
                     Url = urlFunctions.GetFilteredFundraisers(FormInfo.FType2.content, pagesize, pagenumber, "null", 'null')
                     break;
-                case "city":
+                case "City":
                     Url = urlFunctions.GetFilteredFundraisers('null', pagesize, pagenumber, FormInfo.FType2.content, 'null')
                     break;
-                case "country":
+                case "Country":
                     Url = urlFunctions.GetFilteredFundraisers('null', pagesize, pagenumber, 'null' ,FormInfo.FType2.content);
                     break;
                 default:
                     Url = urlFunctions.GetFilteredFundraisers('null', pagesize, pagenumber, 'null', 'null')
             }
-            // test url, remove the below line later
-            Url = urlFunctions.GetFilteredFundraisers("Medical", pagesize, pagenumber, "null", 'null')
             const res = await API.sendGetRequest(Url,
             );
-            if (res.success) {
+            if(FormInfo.FType2.content) {
+                count = 1;
+            }
+            if(count === 0){
+                const params = new URLSearchParams({
+                    pageSize: String(pagesize),
+                    pageNumber: String(pagenumber), // Convert pagenumber to string
+                  });
+                  
+                  
+                Url = `http://localhost:8080/api/fundraisers?${params.toString()}`;
+                const res = await API.sendGetRequest(Url)
+                if (res.success) {
+                    const MappedData = await GetFundraisersMapped(res.data.content)
+                    SetFundraisers(MappedData)
+                }
+            }
+            else if (res.success) {
                 const MappedData = await GetFundraisersMapped(res.data.content)
                 SetFundraisers(MappedData)
             }
@@ -241,16 +264,17 @@ const DiscoverPage = () => {
 
                 </DummyConatiner>
 
-                <ButtonContainer><SubmitButton onClick={handelSubmit}>Search</SubmitButton></ButtonContainer>
-
             </FirstContainer>
+
             <SecondContainer>
+
                 <MovContainer $width={Shifts} $trans={trans}>
                     {Fundrasiers.length > 0 &&
                         Fundrasiers.map((item, index) => (
                             <PostCard Data={item}></PostCard>
                         ))}
                 </MovContainer>
+
             </SecondContainer>
         </MainContainer>
     );

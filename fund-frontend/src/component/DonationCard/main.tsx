@@ -26,6 +26,7 @@ box-shadow: 0 10px 30px rgba(0,0,0,.08);
 flex-direction:column;
 border-radius:16px;
 border:none;
+margin-top : 2rem;
 `
 const ImageContainer=styled.img`
 width:100%;
