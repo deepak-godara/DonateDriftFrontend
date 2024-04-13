@@ -1,7 +1,6 @@
 import React, { FormEvent, ReducerState, useReducer } from "react";
 import styled from "styled-components";
 import { RxCross2 } from "react-icons/rx";
-import { Interface } from "readline";
 import { SignUps } from "../../../backendApi/services/SignUp";
 const Container = styled.div`
   height: 100vh;
@@ -75,13 +74,6 @@ const InputContainer = styled.input`
 }
     
     `;
-const ForgetContainer = styled.div`
-  font-size: 0.8rem;
-  text-decoration: underline;
-  font-weight: 400;
-  color: rgb(160, 160, 160);
-  font-family: Poppins, sans-serif;
-`;
 const SubmitButton = styled.button`
   border: none;
   height: 3.6rem;
@@ -133,6 +125,8 @@ function SignUp(props:propstypes) {
   const OnSubmit=async (event:FormEvent)=>{
     event.preventDefault();
     const res=await SignUps(SignUp.Name,SignUp.Email,SignUp.Password)
+    if(res.success)
+      window.location.reload()
   }
   return (
     <Container>

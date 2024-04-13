@@ -91,7 +91,6 @@ function AuthUserProvider(props: any) {
 
   async function getLoginStatus() {
     const token = Cookies.get("token");
-    console.log(token)
     if (!token) {
       SetLoading(true);
     } else {

@@ -10,12 +10,10 @@ interface UserData {
 export async function FetchFundRaisers(
 ): Promise<UserData> {
   const Url = urlFunctions.GetFundraisers();
-  console.log(Url);
   const res = await API.sendGetRequest(Url,
    );
   if (res.success) {
      const MappedData=await GetFundraisersMapped(res.data)
-     console.log(MappedData)
     return { success: true, data:MappedData};
   }
   return { success: false };

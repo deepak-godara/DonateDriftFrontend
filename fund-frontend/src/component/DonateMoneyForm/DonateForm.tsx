@@ -1,5 +1,4 @@
 import React, { useReducer } from 'react';
-import { act } from 'react-dom/test-utils';
 import Styled, { styled } from 'styled-components';
 import DonateFormInput from './input';
 import { FaLock } from "react-icons/fa";
@@ -10,9 +9,6 @@ const MainContainer = Styled.div`
     flex-direction: column;
     align-items: center;
 `;
-
-
-
 const FormContainer = Styled.div`
     display: flex;
     flex-direction: column;
@@ -20,7 +16,6 @@ const FormContainer = Styled.div`
     margin-top: 0.2rem;
     width : 450px;
 `;
-
 const FormContainerSide = styled.div`
     display : flex;
     flex-direction : column;

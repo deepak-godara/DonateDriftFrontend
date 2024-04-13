@@ -49,7 +49,7 @@ function SpecialButtons() {
   const StartFundRaiserFunc=()=>{
        if(token)
        {
-          Navigate("/Fundraise");
+          Navigate("/fundraise");
        }
   }
   return (

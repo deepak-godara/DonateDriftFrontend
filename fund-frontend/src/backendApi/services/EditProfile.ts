@@ -28,7 +28,6 @@ export async function UpdateProfile(
   Id:number
 ): Promise<UserData> {
   const Url = urlFunctions.EditProfileUrl(Id);
-  console.log(Url)
   const Datas = await FormDatas(Data);
   const res = await API.sendPostRequest2(Url, Datas, true);
   if(res.success)

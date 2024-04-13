@@ -6,12 +6,12 @@ export  const ItemArray=[
     {
         Icon: IoCreateOutline,
         Content:"Create new campaign",
-        Link:"/profile"
+        Link:"/fundraise"
     },
     {
         Icon:MdOutlineDashboardCustomize,
         Content:"My dashboard",
-        Link:"/profile"
+        Link:"/userfundraiser"
     },
     {
         Icon:RiRefund2Line,

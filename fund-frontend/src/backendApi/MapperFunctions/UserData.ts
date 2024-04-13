@@ -4,7 +4,7 @@ import { GetFundraisersMapped } from "./FundRaisers";
 export async function GetUserDataMapped(
   Data: any
 ): Promise<InitialUserType> {
-  const Datas=await GetFundraisersMapped(Data.fundraisers);
+  const Datas=await GetFundraisersMapped(Data.fundraiser);
   return {
     isAuth: true,
     UserAbout:Data.description,

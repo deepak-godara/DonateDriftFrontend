@@ -35,11 +35,8 @@ export const API = {
     if (res1.ok) {
       // const res= await res1.json();
       const data = await res1.json();
-
-      console.log(data);
       return { success: true, data: data };
     } else {
-      console.log("f")
       return { success: false, data: "Could not post" };
     }
   },
@@ -77,7 +74,6 @@ export const API = {
   }
     if (res.ok) {
       const data = await res.json();
-      console.log(data);
       return { success: true, data: data };
     } else {
       return { success: false, data: "Could not put" };
@@ -109,10 +105,8 @@ export const API = {
       },
     });
   }
-  console.log(res);
     if (res.ok) {
       const data = await res.json();
-      console.log(data)
       return { success: true, data: data };
     } else {
       return { success: false, data: "Could not Get" };
