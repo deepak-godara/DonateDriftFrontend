@@ -6,7 +6,7 @@ import { GetFundRaiserData } from "../../backendApi/services/GetFundRaiser";
 import { useParams } from "react-router-dom";
 const MainContainer = styled.div`
   width: 60rem;
-  max-width:90%;
+  max-width:96%;
   display: flex;
   margin: 1rem auto;
   flex-direction: column;
@@ -115,6 +115,7 @@ function Donation() {
         </DataContainer1>
       </SecondData>
       <DonateData2
+      CreaterId={DonateData.FundRaiserId}
         FundRaiserPhotos={DonateData.FundRaiserPhotos}
         FundRaiserStory={DonateData.FundRaiserStory}
         Donors={DonateData.Donors}

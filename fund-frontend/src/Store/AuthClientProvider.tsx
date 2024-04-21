@@ -8,6 +8,7 @@ import UserFundrasiers from "../component/UserFundrasiers";
 const InitialState = {
   isAuth: false,
   UserId:null,
+  UserRole:"",
   UserAbout:null,
   UserEmail: null,
   UserFundRaisers:[],
@@ -21,6 +22,7 @@ export interface InitialUserType {
   isAuth: boolean;
   UserId:number|null;
   UserAbout:string|null;
+  UserRole:string,
   UserFundRaisers:Array<RequiredFormat 
   
  >;
@@ -38,6 +40,7 @@ const AddUserReducer = (
   const newState = { ...state };
   if (action.type === "login" && action.payload) {
     newState.isAuth = true;
+    newState.UserRole=action.payload.UserRole
     newState.UserId = action.payload.UserId;
     newState.UserAbout=action.payload.UserAbout;
     newState.UserEmail = action.payload.UserEmail;
@@ -78,6 +81,7 @@ function AuthUserProvider(props: any) {
   const UserCtx = {
     isAuth: UserData.isAuth,
     UserId:UserData.UserId,
+    UserRole:UserData.UserRole,
     UserAbout:UserData.UserAbout,
     UserFundRaisers:UserData.UserFundRaisers,
     UserName: UserData.UserName,
@@ -100,8 +104,10 @@ function AuthUserProvider(props: any) {
       const res = await GetUserData(header, payload);
       if (res.success) {
         SetUserData({ type: "login", payload: res.data });
+        
         setTimeout(() => {
           SetLoading(true);
+          console.log(UserData)
         }, 200);
       }
     }

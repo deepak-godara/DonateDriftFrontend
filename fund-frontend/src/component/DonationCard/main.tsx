@@ -71,7 +71,7 @@ const LastData = styled.div`
   padding: 16px 20px;
   margin: 0 -20px;
   display: flex;
-  width: 100%;
+  // width: 100%;
   justify-content: space-between;
   flex-wrap: wrap;
   align-items: center;

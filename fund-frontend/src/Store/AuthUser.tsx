@@ -4,6 +4,7 @@ const UserContext=React.createContext<InitialUserType>({
 isAuth : false,
 UserAbout:"",
 UserId:null,
+UserRole:"",
 UserFundRaisers:[],
 UserEmail : "",
 UserName : "",

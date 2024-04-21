@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import Story from "./Story";
 import Donors from "./Donors";
+import FundUpdates from "./Updates/main";
 const MainContainer = styled.div`
   width: 63.5%;
   margin-bottom: 3rem;
@@ -55,6 +56,7 @@ const GreenBorder = styled.div`
 
 interface propTypes {
   FundRaiserPhotos: Array<string>;
+Id:number,
   FundRaiserStory: string;
   Donors: Array<{
     Name: string;
@@ -111,6 +113,7 @@ function Main(props: propTypes) {
           Donors={props.Donors}
         ></Donors>
       )}
+      {Divs===122&&(<FundUpdates id={props.Id}></FundUpdates>)}
     </MainContainer>
   );
 }

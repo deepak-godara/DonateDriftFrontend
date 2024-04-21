@@ -1,4 +1,5 @@
 import { UploadFundraisal } from "../services/FundRaisalUpload";
+import { PendingFundRaisers } from "../services/PendingFundraiser";
 
 const baseUri = "http://localhost:8080";
 export const urlFunctions = {
@@ -17,5 +18,10 @@ export const urlFunctions = {
   ) =>
     `${baseUri}/api/fundraisers/filter?country=${country}&city=${city}&category=${category}&pageSize=${pagesize}&pageNumber=${pagenumber}`,
   GetUserDataUrl: () => `${baseUri}/auth/token`,
-  EditProfileUrl:(Id:number)=>`${baseUri}/api/user/update/${Id}`
+  EditProfileUrl:(Id:number)=>`${baseUri}/api/user/update/${Id}`,
+  UpdateFudnraiser:(Id:string)=>`${baseUri}/status/${Id}`,
+  GetUpdates:(Id:string)=>`${baseUri}/status/fundraiser/${Id}`,
+  ApproveFundRaiser:(FundRaiserId:number,Status:number)=>`${baseUri}/admin/fundraisers/${FundRaiserId}/${Status}`,
+  PendingFundRaisers:()=>`${baseUri}/admin/pending`
+
 };

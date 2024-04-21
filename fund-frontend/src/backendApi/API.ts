@@ -88,6 +88,7 @@ export const API = {
     }
     const token = Cookies.get("token");
     let res;
+    console.log(token)
     if(token)
     { res = await fetch(url, {
       method: "GET",
@@ -127,7 +128,7 @@ export const API = {
     let res;
     if(token)
     { res = await fetch(url, {
-      method: "POST",
+      method: "PUT",
       headers: {
         "Content-type": "application/json",
         Authorization: `Bearer ${token}`,

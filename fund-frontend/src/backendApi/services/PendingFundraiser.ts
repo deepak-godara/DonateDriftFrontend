@@ -7,24 +7,13 @@ interface UserData {
   success: boolean;
   data?: RequiredFormat[];
 }
-export async function FilteredFundRaisers(
-  category: string,
-  city: string,
-  country: string,
-  pagesize: number,
-  pagenumber: number
+export async function PendingFundRaisers(
 ): Promise<UserData> {
-  const Url = urlFunctions.GetFilteredFundraisers(
-    category,
-    pagesize,
-    pagenumber,
-    city,
-    country
-  );
-  const res = await API.sendGetRequest(Url);
+  const Url = urlFunctions.PendingFundRaisers();
+  const res = await API.sendGetRequest(Url,true);
   if (res.success) {
-    const MappedData = await GetFundraisersMapped(res.data.content);
-    console.log(MappedData)
+    console.log(res)
+    const MappedData = await GetFundraisersMapped(res.data);
     return { success: true, data: MappedData };
   }
   return { success: false };

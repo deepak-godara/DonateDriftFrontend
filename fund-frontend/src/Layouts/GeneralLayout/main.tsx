@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Outlet } from "react-router-dom";
+import Navbar from "../../component/NavBar/navbar";
 import Footer from "../../component/Footer/Footer";
 import NavBarComponent from "../../component/NavBarComponent";
 const MainContainer = styled.div`
@@ -25,7 +26,7 @@ function main() {
   return (
     <MainContainer>
       <NavContainer>
-        <NavBarComponent />
+        <Navbar />
       </NavContainer>
       <BodyContainer>
 <Outlet/>
