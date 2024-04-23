@@ -68,7 +68,7 @@ function App() {
               )}
               {usercontext.UserRole === "USER" && (
                 <>
-                  {/* <Route index element={<HomePage />} /> */}
+                  <Route index element={<HomePage />} />
                   <Route path="/fundraise" element={<FundRaisalForm />}></Route>
 
                   <Route
