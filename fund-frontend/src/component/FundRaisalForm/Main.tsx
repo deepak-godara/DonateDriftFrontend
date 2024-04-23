@@ -54,6 +54,7 @@ function FormComponent() {
   const back=(change:number)=>{
      SetFormState((prevState)=>prevState-change)
   }
+  const ShiftPage=(num:number)=>SetFormState(num)
   const nextPage=(change:number)=>{
     console.log(change)
     SetFormState((prevState)=>prevState+change)
@@ -62,7 +63,7 @@ function FormComponent() {
     <MainContainer>
       <FirstContainer>Kickstart Your Fundraising Endeavor</FirstContainer>
       <SecondContainer>
-        <LeftContainer><StepContainer FormState={FormState} back={back} nextPage={nextPage}></StepContainer></LeftContainer>
+        <LeftContainer><StepContainer FormState={FormState} back={back} nextPage={nextPage} ShiftPage={ShiftPage}></StepContainer></LeftContainer>
         <RightContainer><FormContainer FormState={FormState} back={back} nextPage={nextPage}/></RightContainer>
       </SecondContainer>
     </MainContainer>

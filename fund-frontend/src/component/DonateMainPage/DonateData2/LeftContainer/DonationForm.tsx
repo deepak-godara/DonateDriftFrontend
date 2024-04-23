@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 const MainContainer = styled.div`
   font-family: Lato, sans-serif;
   padding: 0;
@@ -127,9 +128,14 @@ const LastContainer = styled.div`
   font-size: 10px;
   line-height: 170%;
 `;
-function DonationForm() {
+interface proptypes{
+  Id:number
+}
+function DonationForm(props:proptypes) {
   return (
-    <MainContainer>
+    
+    <MainContainer >
+      <Link to={`/fundraiser/${props.Id}/donate`} style={{textDecoration:"none"}}>
       <Secondcontainer>
         <RaisedAmount>$300</RaisedAmount>
         <TotalAount> raised of $800 goal</TotalAount>
@@ -150,7 +156,9 @@ function DonationForm() {
         </LastContainer>
         
       </Secondcontainer>
+      </Link>
     </MainContainer>
+  
   );
 }
 

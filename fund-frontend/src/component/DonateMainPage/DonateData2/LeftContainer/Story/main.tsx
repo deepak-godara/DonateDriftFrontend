@@ -1,6 +1,7 @@
 import React ,{useState,useRef,useEffect}from 'react'
 import styled from 'styled-components'
 import Donors from '../Donors'
+import { donorstypes } from '../../../main';
 import { RiArrowDropRightLine } from "react-icons/ri";
 import { RiArrowDropLeftLine } from "react-icons/ri";
 const PhotosContainer = styled.div`
@@ -59,12 +60,7 @@ margin-bottom: 20px;
     interface propTypes {
         FundRaiserPhotos: Array<string>;
         FundRaiserStory: string;
-        Donors: Array<{
-          Name: string;
-          Date: string;
-          Amount: number;
-          comment: string;
-        }>;
+        Donors: Array<donorstypes>;
       }
       interface YourComponentProps {
         htmlContent: string;

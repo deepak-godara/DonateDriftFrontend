@@ -278,17 +278,8 @@ function FormCantainer2(props:proptypes) {
     }
     if(count===0)
     {
-      console.log(state+"  fg")
-      if(state===0)
-      {
       props.FormFunc(FormInfo2);
-      setStatw(1);
-          }
-    else
-    {
-props.Subunc();
-      props.NextFunc(0);
-    }
+      props.NextFunc(1);
   }
   }
   return (
@@ -350,7 +341,7 @@ props.Subunc();
         ></Forminput>
       </Content1>
       <Division />
-      <Button SubmitFunc={CheckValidity} BackFunc={props.LastFunc}></Button>
+      <Button  Loading={false} SubmitFunc={CheckValidity} BackFunc={props.LastFunc} Name="Continue"></Button>
     </MainContainer>
   );
 }

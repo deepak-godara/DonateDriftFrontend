@@ -23,6 +23,7 @@ export async function FilteredFundRaisers(
   );
   const res = await API.sendGetRequest(Url);
   if (res.success) {
+    console.log(res)
     const MappedData = await GetFundraisersMapped(res.data.content);
     console.log(MappedData)
     return { success: true, data: MappedData };

@@ -88,7 +88,7 @@ export const API = {
     }
     const token = Cookies.get("token");
     let res;
-    console.log(token)
+    // console.log(token)
     if(token)
     { res = await fetch(url, {
       method: "GET",
@@ -108,6 +108,7 @@ export const API = {
   }
     if (res.ok) {
       const data = await res.json();
+      console.log(data)
       return { success: true, data: data };
     } else {
       return { success: false, data: "Could not Get" };

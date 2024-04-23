@@ -4,6 +4,7 @@ import React, {
   useState,
   useEffect,
   useContext,
+  // useNavigate,/
 } from "react";
 import "./EditorProfile.css"
 import Forminput from "../../FunctionalCompos/input";
@@ -13,6 +14,7 @@ import styled from "styled-components";
 import Loader from "react-js-loader";
 import { UpdateProfile } from "../../backendApi/services/EditProfile";
 import { CiCamera } from "react-icons/ci";
+import { useNavigate } from "react-router-dom";
 
 const Inp = styled.input`
   // display : none;
@@ -112,7 +114,7 @@ const SubmitContainer = styled.div`
 `;
 const LoaderDiv=styled.div`
 position:absolute;
-top:-1.1rem;
+top:0.4rem;
 `
 const ErrorMessage = styled.p`
   margin: 0;
@@ -286,6 +288,7 @@ const FormInformationReducer = (
 function EditFormInput() {
   const Country = ["India", "Srilanka", "Pakistan"];
   const photoref = useRef<HTMLInputElement>(null);
+  const Navigate=useNavigate()
   const Usercontext = useContext(UserContext);
   const [errorMessage, setErrorMessage] = useState("");
   const [FormInfo, SetFormInfo] = useReducer(
@@ -359,6 +362,12 @@ function EditFormInput() {
       if (Usercontext.UserId) {
         SetLoading(true);
         const data = await UpdateProfile(FormInfo, Usercontext.UserId);
+        if (data.success) {
+          if(Usercontext.LoginUser)
+          Usercontext.LoginUser(data.data);
+          SetLoading(false);
+          Navigate("/")
+        }
         SetLoading(false);
       }
     } else {
@@ -492,11 +501,11 @@ function EditFormInput() {
               <Loader
                 type="spinner-cub"
                 color="white"
-                style={{ position:"absolute"}}
+                style={{ position:"absolute", top:"2.9rem"}}
                
-                bottom="0.2rem"
+                // top="2.9rem"
                 bgColor="white"
-                title={"spinner-cub"}
+                // title={"spinner-cub"}
                 size={50}
               ></Loader>
               </LoaderDiv>

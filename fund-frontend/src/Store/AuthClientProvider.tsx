@@ -4,6 +4,7 @@ import Cookies from "js-cookie";
 import { RequiredFormat } from "../component/DonationCard/main";
 import { GetUserData } from "../backendApi/services/GetUserData";
 import UserFundrasiers from "../component/UserFundrasiers";
+import LogOut from "../component/NavBarComponent/LogOut";
 // import { VerifyUser } from "../backendApi/services/VerifyUser";
 const InitialState = {
   isAuth: false,
@@ -31,6 +32,8 @@ export interface InitialUserType {
   UserPhoto: string | null;
   UserCity: string | null;
   UserCountry: string | null;
+  LogOutUser?: () => void;
+  LoginUser?:(Data:InitialUserType)=>void
 }
 
 const AddUserReducer = (
@@ -53,6 +56,7 @@ const AddUserReducer = (
     newState.isAuth = false;
     newState.UserId = null;
     newState.UserAbout=null;
+    newState.UserRole="";
     newState.UserFundRaisers=[];
     newState.UserEmail = null;
     newState.UserName = null;
@@ -66,7 +70,7 @@ const AddUserReducer = (
 function AuthUserProvider(props: any) {
   const [UserData, SetUserData] = useReducer(
     AddUserReducer,
-    InitialState as InitialUserType
+    InitialState as InitialUserType  // Adjust type here
   );
   const [loading, SetLoading] = useState(false);
 
@@ -74,7 +78,7 @@ function AuthUserProvider(props: any) {
     SetUserData({ type: "login", payload: event });
   };
 
-  const LogOutUser = () => {
+   const LogOutUser = () => {
     SetUserData({ type: "logout", payload: null });
   };
 

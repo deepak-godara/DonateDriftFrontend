@@ -280,7 +280,7 @@ function Main(props:proptypes) {
       </Content1>
       <Division></Division>
       <SubmitContainer>
-        <Button SubmitFunc={SubmitFunc} BackFunc={props.LastFunc}></Button>
+        <Button  Loading={false} SubmitFunc={SubmitFunc} BackFunc={props.LastFunc} Name="Continue"></Button>
       </SubmitContainer>
     </MainContainer>
   );

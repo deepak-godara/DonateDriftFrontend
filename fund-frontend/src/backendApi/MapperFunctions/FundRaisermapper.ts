@@ -14,7 +14,16 @@ export async function GetFundraisersMapped(
     }),
     CoverPhoto: Data.coverAttachment.url1,
     FundraiserTitle: Data.title,
-    Donors: Data.Donors,
+    Donors: Data.donors.map((item:any,index:number)=>{
+      const parsedDate=new Date(item.donatedAt)
+      return{
+        Name:item.name,
+        UserId:item.userId,
+        Amount:item.amount,
+        comment:item.comment,
+        Date:parsedDate.toISOString().split('T')[0]
+      }
+    }),
     FundRaiserStory: Data.description,
     Amount: Data.raisedAmount,
     Percentage: Data.raisedAmount / Data.requiredAmount,

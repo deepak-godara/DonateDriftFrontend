@@ -19,7 +19,6 @@ margin-top:3rem;
 `
 const MainDataContainer = styled.div`
   width: 100%;
-  height: 30rem;
   display: flex;
   margin-top:3rem;
   position: relative;

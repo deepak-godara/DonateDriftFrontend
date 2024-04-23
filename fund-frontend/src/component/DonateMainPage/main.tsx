@@ -63,6 +63,13 @@ font-size: 14px;
 line-height: 150%;
 color: #f27979;
 }`;
+export interface donorstypes{
+  Name:string,
+  UserId:string,
+  Amount:string,
+  comment:string,
+  Date:string,
+}
 export interface DonationDataType {
   FundraiserTitle: String;
   CreaterName: String;
@@ -74,7 +81,7 @@ export interface DonationDataType {
   FundRaiserStory: string;
   Amount: number;
   Percentage: number;
-  Donors: Array<any>;
+  Donors: Array<donorstypes>;
   CoverPhoto: String;
 }
 function Donation() {

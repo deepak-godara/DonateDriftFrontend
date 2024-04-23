@@ -80,7 +80,7 @@ const MainContainer = styled.div`
 `
 
 const FirstContainer = styled.div`
-    margin-top : 10rem;
+    margin-top : 5rem;
     width : 100%;
     display : flex;
     flex-direction : row;
@@ -120,7 +120,26 @@ const SubmitButton = styled.div`
 
 
 `
+const Buttons=styled.button`
+width: 55%;
+  border-radius: 8px;
+  border: 1px solid #eaebee;
+  box-sizing: border-box;
+  font-weight: 700;
+  margin:1rem auto;
+  font-size: 16px;
+  text-align: center;
+  background: #4a90e2;
+  color: #fff;
+  border-color: #4a90e2;
+  cursor: pointer;
+  transition: 0.4s;
+  padding: 1rem 0rem;
+  &:hover {
+    background: #1758a5;
+  }
 
+`
 export interface Types1 {
     FType1: { content: string; valid: boolean };
     FType2: { content: string; valid: boolean };
@@ -147,6 +166,11 @@ const FormInformationReducer = (
 
 const DiscoverPage = () => {
     const SelectCountry = ["India", "Srilanka", "Pakistan"];
+    const [Display, SetDisplay] = useState<boolean>(true)
+    const [CurrentType,SetCurrentType]=useState<string>("")
+    const [CuurentVal,SetCurrentVal]=useState<string>("")
+    const [pagenumber,SetPageNumber]=useState<number>(0)
+    const [Val,SetVal]=useState<number>(0)
     const SelectCity = ["Kosli", "Bhadra", "Muzzafarnagar", "Hanumangarh"]
     const SelectCategory = ["Medical", "Education", "Sports"]
     const FundingType = ["Country", "City", "Category"];
@@ -154,31 +178,41 @@ const DiscoverPage = () => {
     const [Shifts, MoveShifts] = useState<number>(0);
     const [trans, SetTrans] = useState<number>(0.5);
     let count = 0;
-
-
-    const pagesize = 10;
-    const pagenumber = 0;
-    
+    const pagesize = 6;
     const [FormInfo, SetFormInfo] = useReducer(
         FormInformationReducer,
         ReducerTypes as Types1
     );
+    const [CType, CtypeFn] = useState<Array<string>>(
+        SelectCountry
+    )
     useEffect(() => {
+        async function Checks()
+        {
+            if(CurrentType!==FormInfo.FType1.content||CuurentVal!==FormInfo.FType2.content){
+                SetPageNumber(0)
+               return SetVal(1);
+            }
+            else{
+               return SetVal(0);
+            }
+        }
         async function getfundraisers() {
             let Url;
-            console.log(FormInfo)
+           Checks().then(async()=>{
+            console.log(pagenumber+" pa "+ Val+ "va "+ FormInfo.FType2.content+" "+FormInfo.FType1.content)
             switch(FormInfo.FType1.content){
                 case "Category":
                     Url = urlFunctions.GetFilteredFundraisers(FormInfo.FType2.content, pagesize, pagenumber, "null", 'null')
                     break;
                 case "City":
-                    Url = urlFunctions.GetFilteredFundraisers('null', pagesize, pagenumber, FormInfo.FType2.content, 'null')
+                    Url = urlFunctions.GetFilteredFundraisers("Education", pagesize, pagenumber, FormInfo.FType2.content, "null")
                     break;
                 case "Country":
-                    Url = urlFunctions.GetFilteredFundraisers('null', pagesize, pagenumber, 'null' ,FormInfo.FType2.content);
+                    Url = urlFunctions.GetFilteredFundraisers("Education", pagesize, pagenumber, "null" ,FormInfo.FType2.content);
                     break;
                 default:
-                    Url = urlFunctions.GetFilteredFundraisers('null', pagesize, pagenumber, 'null', 'null')
+                    Url = urlFunctions.GetFilteredFundraisers("Education", pagesize, pagenumber, "null", "null")
             }
             const res = await API.sendGetRequest(Url,
             );
@@ -188,7 +222,7 @@ const DiscoverPage = () => {
             if(count === 0){
                 const params = new URLSearchParams({
                     pageSize: String(pagesize),
-                    pageNumber: String(pagenumber), // Convert pagenumber to string
+                    pageNumber: String(pagenumber),
                   });
                   
                   
@@ -196,22 +230,62 @@ const DiscoverPage = () => {
                 const res = await API.sendGetRequest(Url)
                 if (res.success) {
                     const MappedData = await GetFundraisersMapped(res.data.content)
+                    if(CurrentType===FormInfo.FType1.content&&CuurentVal===FormInfo.FType2.content){
+                        if(MappedData.length<6)
+                            SetDisplay(false)
+                        else
+                        SetDisplay(true)
+                        const data=[...Fundrasiers,...MappedData]
+                        SetFundraisers(data)
+                    }
+                     else
+                     {
+                        if(MappedData.length<6)
+                            SetDisplay(false)
+                        else
+                        SetDisplay(true)
+                    SetCurrentType(FormInfo.FType1.content)
+                    SetCurrentVal(FormInfo.FType2.content)
                     SetFundraisers(MappedData)
+                     }
                 }
             }
             else if (res.success) {
                 const MappedData = await GetFundraisersMapped(res.data.content)
-                SetFundraisers(MappedData)
-            }
+
+                    if(CurrentType===FormInfo.FType1.content&&CuurentVal===FormInfo.FType2.content){
+                        if(MappedData.length<6)
+                            SetDisplay(false)
+                        else
+                        SetDisplay(true)
+                        const data=[...Fundrasiers,...MappedData]
+                        SetFundraisers(data)
+                    }
+                     else
+                     {
+                        if(MappedData.length<6)
+                            SetDisplay(false)
+                        else
+                        SetDisplay(true)
+                    SetCurrentType(FormInfo.FType1.content)
+                    SetCurrentVal(FormInfo.FType2.content)
+                    SetFundraisers(MappedData)
+                     }
         }
+           })
+           
+    }
         getfundraisers()
-    }, [FormInfo.FType2.content])
-
-
-
-    const [CType, CtypeFn] = useState<Array<string>>(
-        SelectCountry
-    )
+    }, [FormInfo.FType2.content,pagenumber])
+    useEffect(()=>{
+        if (FormInfo.FType1.content === "Country") {
+            CtypeFn(SelectCountry)
+        } else if (FormInfo.FType1.content === "City") {
+            CtypeFn(SelectCity)
+        } else {
+            CtypeFn(SelectCategory)
+        }
+    },[])
     const ChooseType = (type: string, value: string) => {
         SetFormInfo({ type: type, value: value });
         if (value === "Country") {
@@ -224,10 +298,7 @@ const DiscoverPage = () => {
     }
 
     const handelSubmit = () => {
-        if (FormInfo.FType1.content === "" || FormInfo.FType2.content === "") {
-            return;
-        }
-        console.log("Submitting form...", FormInfo);
+        SetPageNumber(prevState=>prevState+1)
     };
     return (
         <MainContainer>
@@ -278,6 +349,8 @@ const DiscoverPage = () => {
                 </MovContainer>
 
             </SecondContainer>
+            {Display&&
+            <Buttons onClick={handelSubmit}>Get More</Buttons>}
         </MainContainer>
     );
 }

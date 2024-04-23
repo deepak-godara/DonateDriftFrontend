@@ -1,15 +1,12 @@
 import { useSelect } from "downshift";
 import React, { ChangeEvent, ReactElement, useState } from "react";
 import styled from "styled-components";
-
 interface InputWidth{
     $width : string;
 }
-
 interface InputColot{
     $valid : boolean;
 }
-
 const DonateContainer = styled.div<InputWidth>`
     display : flex;
     width : 100%;
@@ -18,17 +15,14 @@ const DonateContainer = styled.div<InputWidth>`
     justify-content: flex-start;
     align-items: flex-start;
 `;
-
-
 const DonateLabel = styled.label`
-    color: #5c74ef!important;
+    color: #4a90e2;
     font-weight: 700;
     font-size: 28px;
     line-height: 150%;
     padding-bottom : 2rem;
     width : 100%;
-`
-
+`;
 const DummyTest = styled.div`
     display : flex;
     align-items:center;
@@ -40,11 +34,7 @@ const DummyTest = styled.div`
         border : 0.01px solid #53ca8b;
     }
     width : 100%;
-`
-
-
-
-
+`;
 const MainInput = styled.input<InputColot>`
     resize: none;
     height: 60px;
@@ -60,7 +50,6 @@ const MainInput = styled.input<InputColot>`
     color :  #53ca8b!important;
     background-color: rgba(83, 202, 139, 0.0);
 `;
-
 const CommentInput = styled.textarea<InputColot>`
     outline : none;
     min-height : 90px;
@@ -77,7 +66,6 @@ const CommentInput = styled.textarea<InputColot>`
         border : solid #53ca8b;
     }
 `;
-
 const FixBlock = styled.div`
     // height: 60px;
     padding-right : 0.5rem;
@@ -87,7 +75,6 @@ const FixBlock = styled.div`
     color :  #53ca8b!important;
     background-color: rgba(83, 202, 139, 0.0);
 `
-
 const FixBlockNew = styled.div`
     padding-left : 0.5rem;
     text-align : left;
@@ -103,12 +90,10 @@ const DonateLabelTag = styled.div`
     font-weight: 700;
     width : 100%;
 `
-
 const CheckBox = styled.div`
     font-size : 14px;
     margin-left : 1rem;
 `
-
 const CheckBoxIn = styled.div`
     color: #798798;
     width : 100%;
@@ -116,11 +101,9 @@ const CheckBoxIn = styled.div`
     display : flex;
     align-items : center;
 `
-
 const DummyTestNew = styled.div`
     width : 100%;
-`
-
+`;
 interface prototypes{
     label : string;
     width : string;
@@ -131,15 +114,10 @@ interface prototypes{
     name : string;
     valid : boolean;
 }
-
-
-
 function DonateFormInput(props : prototypes){
     const [textareaContent, setextareacontent] = useState(''); 
-    
-    const calculateTextareaHeight = (content: string|number) => { const numberOfLines = typeof content==="string"?content.split("\n").length:0; // Set a minimum height for the textarea 
+    const calculateTextareaHeight = (content: string|number) => { const numberOfLines = typeof content==="string"?content.split("\n").length:0;
     const minHeight = 30; 
-    
     return `${Math.max(numberOfLines * 25, minHeight)}px`; }; 
     return (
         <DonateContainer $width={props.width}>
@@ -172,5 +150,4 @@ function DonateFormInput(props : prototypes){
         </DonateContainer>
     );
 }
-
 export default DonateFormInput;

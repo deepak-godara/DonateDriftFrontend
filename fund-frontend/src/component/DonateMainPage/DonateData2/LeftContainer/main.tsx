@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import Story from "./Story";
 import Donors from "./Donors";
+import { donorstypes } from "../../main";
 import FundUpdates from "./Updates/main";
 const MainContainer = styled.div`
   width: 63.5%;
@@ -58,12 +59,7 @@ interface propTypes {
   FundRaiserPhotos: Array<string>;
 Id:number,
   FundRaiserStory: string;
-  Donors: Array<{
-    Name: string;
-    Date: string;
-    Amount: number;
-    comment: string;
-  }>;
+  Donors: Array<donorstypes>;
 }
 
 function Main(props: propTypes) {
