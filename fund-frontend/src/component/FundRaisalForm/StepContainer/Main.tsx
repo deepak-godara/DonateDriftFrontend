@@ -79,16 +79,17 @@ color: #798798;
 interface propsTtypes{
   FormState:number,
   back:(change:number)=>void;
+  ShiftPage:(num:number)=>void;
   nextPage:(change:number)=>void;
 }
 function StepContainer(props:propsTtypes) {
-    const [Step,SetStep]=useState<number>(0)
+    const Func=(num:number)=>props.ShiftPage(num);
   return (
     <MainContainer>
       {StepArray.map((item, index) => (
         <SubContainer>
           <TopContainer>
-            <CircleContainer $active={index===props.FormState}>{item.id}</CircleContainer>
+            <CircleContainer  onClick={props.FormState>=index?()=>{Func(index)}:()=>{var a=0}} $active={index===props.FormState}>{item.id}</CircleContainer>
             <NameContainer $active={index===props.FormState}>{item.title}</NameContainer>
           </TopContainer>
           <BottomContainer>

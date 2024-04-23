@@ -1,5 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
+import Cookies from 'js-cookie'
+import { useContext } from 'react';
+import UserContext from '../../Store/AuthUser';
+import { useNavigate } from 'react-router-dom';
 import { IoIosLogOut } from "react-icons/io";
 const ItemIcon=styled.div`
 height:1.25rem;
@@ -28,12 +32,25 @@ font-weight: 700;
     color: #2f435a;
 `
 function LogOut() {
+  const navigate=useNavigate();
+  const user=useContext(UserContext)
+  const LogOuts=()=>{
+    const token=Cookies.get("token");
+    if(token)
+      {
+        Cookies.remove("token");
+        if(user.LogOutUser)
+        user.LogOutUser()
+        navigate("/")
+        window.location.reload();
+      }
+  }
   return (
     <ListItem>
          <ItemIcon>
                <IoIosLogOut  style={{height:"100%", width:"100%",    color: "#2f435a"}}/>
                </ItemIcon>
-               <ItemContent>LogOut</ItemContent>
+               <ItemContent  onClick={LogOuts}>LogOut</ItemContent>
     </ListItem>
   )
 }

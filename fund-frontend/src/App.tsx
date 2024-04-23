@@ -1,27 +1,19 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import logo from "./logo.svg";
-import "./App.css";
 import UserLayout from "./Layouts/UserLayout";
 import GeneralLayout from "./Layouts/GeneralLayout";
 import FundRaisalForm from "./component/FundRaisalForm";
-import Navbar from "./component/NavBar/navbar";
 import HomePage from "./component/HomePage";
 import AdminAllFdunraiser from "./component/AdminAllFdunraiser";
 import UserFundrasiers from "./component/UserFundrasiers";
-import AuthUserProvider from "./Store/AuthClientProvider";
 import UserContext from "./Store/AuthUser";
 import EditFormInput from "./component/ProfileEditPage/editForm";
-import NavBarComponent from "./component/NavBarComponent";
 import DonateMainPage from "./component/DonateMainPage";
 import DonateForm from "./component/DonateMoneyForm/DonateForm";
-import { BrowserRouter as Router } from "react-router-dom"; // Import BrowserRouter
+import { BrowserRouter as Router } from "react-router-dom"; 
 import { Routes, Route } from "react-router-dom";
 import Update from "./component/UpdateFundrasier/main";
-import Authentication from "./component/Authentication";
-import SignUp from "./component/Authentication/SignUp";
 import Cookies from "js-cookie";
-// import EditFormInput from "./component/ProfileEditPage/editForm";
 import DiscoverPage from "./component/DiscoverPage/main";
 function App() {
   const usercontext = useContext(UserContext);
@@ -41,24 +33,19 @@ function App() {
     useEffect(() => {
       navigate(to, { replace: true });
     }, [navigate, to]);
-
     return null;
   };
   useState(() => {
     async function getLoginStatus() {
       await Func();
-      console.log(usercontext.UserRole + " g");
-      // console.log(T)
       SetDisplay(true);
     }
-
     getLoginStatus();
   });
   return (
     <Router>
       <Routes>
         <Route path="" element={Token ? <UserLayout /> : <GeneralLayout/>}>
-       
           {Token && (
             <>
               {usercontext.UserRole === "ADMIN" && (
@@ -68,15 +55,14 @@ function App() {
               )}
               {usercontext.UserRole === "USER" && (
                 <>
-                  {/* <Route index element={<HomePage />} /> */}
                   <Route path="/fundraise" element={<FundRaisalForm />}></Route>
-
                   <Route
                     path="/fundraiser/update/:id"
                     element={<Update></Update>}
                   />
                   <Route path="profile" element={<EditFormInput />} />
                   <Route path="userfundraiser" element={<UserFundrasiers />} />
+                  <Route path="payment/success/:id/:amount" element={<DonateMainPage />} />
                 </>
               )}
             </>
@@ -85,7 +71,13 @@ function App() {
             <>
               <Route index element={<HomePage />} />
               <Route path="/discover" element={<DiscoverPage />} />
-              <Route path="fundraiser/:id" element={<DonateMainPage />} />
+              <Route path="fundraiser/:id">
+                <Route index element={<DonateMainPage />} />
+                {
+                  Token&&
+                  <Route path="donate" element={<DonateForm/>}></Route>
+                }
+                </Route> 
             </>
           )}
         </Route>

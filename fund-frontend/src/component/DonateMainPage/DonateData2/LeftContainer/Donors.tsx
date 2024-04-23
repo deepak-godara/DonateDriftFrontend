@@ -1,5 +1,6 @@
 import React from "react";
 import { BsPersonCircle } from "react-icons/bs";
+import { donorstypes } from "../../main";
 import styled from "styled-components";
 const MainContainer = styled.div`
   width: 100%;
@@ -43,7 +44,20 @@ const DonorDetails = styled.div`
   list-style: none;
   box-sizing: border-box;
   margin-top: 0;
-  max-width: 80%;
+  // max-width: 80%;
+  width:100%;
+  margin-bottom: 1rem;
+`;
+const DonorBox = styled.div`
+  list-style: none;
+  box-sizing: border-box;
+  display:flex;
+  flex-direction:row;
+  justify-content:space-between;
+  align-items:center;
+  margin-top: 0;
+  // max-width: 80%;
+  width:100%;
   margin-bottom: 1rem;
 `;
 const DonorData1 = styled.div`
@@ -52,7 +66,7 @@ const DonorData1 = styled.div`
   font-weight: 700;
   font-size: 16px;
   line-height: 150%;
-  color: #2f435a;
+  color: #53ca8b;
 `;
 const DonorData2 = styled.div`
   color: #6d8191;
@@ -68,7 +82,7 @@ const DonorData3 = styled.div`
   font-family: Lato, sans-serif;
   font-style: normal;
   font-weight: 400;
-  padding-top: 12px;
+  // padding-top: 12px;
   font-size: 14px;
   line-height: 170%;
   color: #2f435a;
@@ -89,8 +103,13 @@ function DonorsElement(props: PropTypes) {
         />
       </DonorIcon>
       <DonorDetails>
+        <DonorBox>
+        <DonorDetails>
         <DonorData1>{props.Name}</DonorData1>
         <DonorData2> Donated on {props.Date}</DonorData2>
+        </DonorDetails>
+        <DonorData1>${props.Amount}</DonorData1>
+        </DonorBox>
         <DonorData3>{props.comment}</DonorData3>
       </DonorDetails>
     </DonorComponent>
@@ -98,17 +117,13 @@ function DonorsElement(props: PropTypes) {
 }
 interface PropTypes {
   Name: string;
+  UserId:string;
   Date: string;
-  Amount: number;
+  Amount: string;
   comment: string;
 }
 interface propTypes {
-  Donors: Array<{
-    Name: string;
-    Date: string;
-    Amount: number;
-    comment: string;
-  }>;
+  Donors: Array<donorstypes>;
 }
 function Donors(props: propTypes) {
   return (

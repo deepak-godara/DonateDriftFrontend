@@ -80,6 +80,7 @@ function SuccessFull() {
   const [trans, SetTrans] = useState<number>(0.5);
   useEffect(() => {
     async function getfundraisers() {
+      console.log("hii")
       const data = await FilteredFundRaisers(Categorys, "null", "null", 10, 0);
       if (data.success && data.data) {
         SetFundraisers(data.data);

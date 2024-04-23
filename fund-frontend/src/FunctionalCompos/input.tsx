@@ -42,8 +42,8 @@ interface proptypes {
   label: string;
   width:string;
   placeholder: string;
-  value: string;
-  ChangeFunc: (type: string, value: string) => void;
+  value: string|number;
+  ChangeFunc: (type: string, value:any) => void;
   type: string;
   name: string;
   valid:boolean;

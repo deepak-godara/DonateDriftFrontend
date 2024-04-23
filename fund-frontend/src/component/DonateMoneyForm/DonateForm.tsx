@@ -1,6 +1,11 @@
-import React, { useReducer } from 'react';
+import React, { useContext, useReducer } from 'react';
 import Styled, { styled } from 'styled-components';
 import DonateFormInput from './input';
+import { useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import UserContext from '../../Store/AuthUser';
+import { MakePayments } from '../../backendApi/services/MakePayment';
+// import UserContext from '../../Store/AuthUser';
 import { FaLock } from "react-icons/fa";
 
 
@@ -21,7 +26,7 @@ const FormContainerSide = styled.div`
     flex-direction : column;
     align-items : flex-start;
     margin-top: 0.2rem;
-    width : 450px;
+    width : 320px;
 `
 
 const MainSection = Styled.div`
@@ -40,7 +45,7 @@ const BhikhariData = styled.div`
     background: #f5f6f7;
     border-radius: 16px;
     padding: 28px 20px; 
-    width : 70%;
+    width : 100%;
 `
 
 
@@ -78,6 +83,7 @@ const Dscrip = styled.div`
 
 const DivideConatiner = styled.div`
     width : 65rem;
+    max-width:100%;
     display : flex;
     justify-content : space-around;
     margin-bottom: 16px;
@@ -125,20 +131,66 @@ const FormInformationReducer = (
     action: { type: string ; value : string , valid?:boolean}
 ) => {
     const NewState = { ...state };
-
+if(action.valid!=undefined)
+    {
+        if(action.type==="DonateValue" )NewState.DonateValue.valid=false;
+        else if(action.type==="Comment" ) {NewState.Comment.valid=false}
+    }
+    else
+    {
     if(action.type==="DonateValue" && typeof action.value === 'string') {NewState.DonateValue.content = action.value; NewState.DonateValue.valid=true}
     else if(action.type==="Comment"  && typeof action.value === 'string') {NewState.Comment.content = action.value; NewState.Comment.valid=true}
+    }
 
 
     return NewState;
 };
 
 function DonateForm(){
+    const Param=useParams();
+    const Navigate=useNavigate();
+    // const User=useContext()
+    const User=React.useContext(UserContext);
     const [FormInfo, SetFormInfo] = useReducer(
         FormInformationReducer,
         ReducerTypes as Types1
     );
+const MakePayment=async()=>{
+    let count=0;
+    if(FormInfo.DonateValue.content=="0"||FormInfo.DonateValue.content==="")
+        {
+        count++;
+        SetFormInfo({type:"DonateValue", valid:false,value:""})
+        }
+    if(FormInfo.Comment.content==="")
+        {
+            count++;
+            SetFormInfo({type:"Comment", valid:false,value:""})
+        }
+        if(count==0&&User.UserId!=null)
+            {
+                console.log('yes');
+                const Data={
+                  Currency:"USD",
+                  Description:FormInfo.Comment.content,
+                  Amount:FormInfo.DonateValue.content,
+                  Name:User.UserName?User.UserName:"",
+                  userId:User.UserId,
+                }
+                if(Param.id)
+                    {    
+                    const res=await  MakePayments(Param.id,Data);
+                    if(res.success)
+                        {
+                            if(res.data)
+                                {
+                                   window.location.href=res.data.url
+                                }
+                        }
+                    }
+            }
 
+}
     return (
         <MainContainer>
             <InitialLabel>Make a Donation</InitialLabel>
@@ -174,7 +226,7 @@ function DonateForm(){
                         ></DonateFormInput>
                     </MainSection>
 
-                    <SubmitContainer>
+                    <SubmitContainer onClick={MakePayment}>
                         Continue
                     </SubmitContainer>
                     <Dscrip>By continuing you are agreeing to GoGetFunding's terms and privacy policy.</Dscrip>
