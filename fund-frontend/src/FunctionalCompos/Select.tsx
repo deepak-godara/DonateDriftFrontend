@@ -56,7 +56,7 @@ const DropIcon = styled(MdOutlineKeyboardArrowDown)`
 const DropDown = styled.ul`
   position: absolute;
   left: -1px;
-  z-index:100;
+  z-index:1000;
   right: -1px;
   top: calc(80% + 5px) !important;
   bottom: auto !important;

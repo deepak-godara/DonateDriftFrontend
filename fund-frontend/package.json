@@ -48,6 +48,7 @@
   },
   "devDependencies": {
     "@types/draftjs-to-html": "^0.8.4",
+    "@types/jquery": "^3.5.29",
     "@types/js-cookie": "^3.0.6",
     "@types/react-draft-wysiwyg": "^1.13.8",
     "draftjs-to-html": "^0.9.1",

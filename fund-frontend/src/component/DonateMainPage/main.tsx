@@ -83,6 +83,7 @@ export interface DonationDataType {
   Percentage: number;
   Donors: Array<donorstypes>;
   CoverPhoto: String;
+  RequiredAmount:number
 }
 function Donation() {
   const Param = useParams();
@@ -90,6 +91,10 @@ function Donation() {
   const [Error, SetError] = useState<boolean>(false);
   const [Display, SetDisplay] = useState<boolean>(false);
   useEffect(() => {
+      window.scrollTo({
+    top: 0,
+    // behavior: // Optional: Smooth scrolling animation
+  })
     async function GetFundrasierDetails() {
       const Fundraiserid: any = Param.id;
       const Data = await GetFundRaiserData(Fundraiserid);
@@ -126,6 +131,9 @@ function Donation() {
         FundRaiserPhotos={DonateData.FundRaiserPhotos}
         FundRaiserStory={DonateData.FundRaiserStory}
         Donors={DonateData.Donors}
+        NoDonors={DonateData.Donors.length}
+        Amount={DonateData.Amount}
+        RequiredAmount={DonateData.RequiredAmount}
       />
       </>}
     </MainContainer>

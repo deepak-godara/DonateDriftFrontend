@@ -12,8 +12,9 @@ color:black;
 padding-right:0.5rem;
 `
 const ListItem = styled.li`
-  font-size: 16px;
+  font-size: 18px;
   line-height: 1.5;
+  cursor:pointer;
   padding: 0.2rem 0.2rem;
   color: #2f435a;
   display:flex;
@@ -22,12 +23,16 @@ const ListItem = styled.li`
   flex-direction:row;
   align-items:center;
   margin-bottom:0.5rem;
+  ont-weight: 700;
+    font-size: 17px;
+    line-height: 150%;
+    color: #2f435a;
   // position: static!important;
   transform: translate(0) !important;
 `;
 const ItemContent=styled.div`
 font-weight: 700;
-    font-size: 14px;
+    font-size: 17px;
     line-height: 150%;
     color: #2f435a;
 `

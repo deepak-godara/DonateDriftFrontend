@@ -4,6 +4,7 @@ import UserLayout from "./Layouts/UserLayout";
 import GeneralLayout from "./Layouts/GeneralLayout";
 import FundRaisalForm from "./component/FundRaisalForm";
 import HomePage from "./component/HomePage";
+import UserDonation from "./component/UserDonation";
 import AdminAllFdunraiser from "./component/AdminAllFdunraiser";
 import UserFundrasiers from "./component/UserFundrasiers";
 import UserContext from "./Store/AuthUser";
@@ -61,8 +62,11 @@ function App() {
                     element={<Update></Update>}
                   />
                   <Route path="profile" element={<EditFormInput />} />
+                  <Route path="donation" element={<UserDonation/>}/>
                   <Route path="userfundraiser" element={<UserFundrasiers />} />
                   <Route path="payment/success/:id/:amount" element={<DonateMainPage />} />
+                  <Route path="payment/cancel/:id/:amount" element={<DonateMainPage />} />
+                  <Route path="payment/error/:id/:amount" element={<DonateMainPage />} />
                 </>
               )}
             </>

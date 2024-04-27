@@ -216,7 +216,7 @@ const ReducerTypes = {
   Password: { content: "", valid: true },
   ConfirmPassword: { content: "", valid: true },
   City: { content: "", valid: true },
-  Country: { content: "", valid: true },
+  Country: { content: "India", valid: true },
   Images: { content: "", valid: true },
 };
 
@@ -301,7 +301,7 @@ function EditFormInput() {
     SetFormInfo({ type: "AboutMe", value: Usercontext.UserAbout?Usercontext.UserAbout:"" });
     SetFormInfo({ type: "Password", value:"" });
     SetFormInfo({ type: "City", value: Usercontext.UserCity?Usercontext.UserCity:" " });
-    SetFormInfo({ type: "Country", value:Usercontext.UserCountry?Usercontext.UserCountry:" "  });
+    SetFormInfo({ type: "Country", value:Usercontext.UserCountry?Usercontext.UserCountry:"India"  });
     SetFormInfo({ type: "ProfilePhoto", value: Usercontext.UserPhoto?Usercontext.UserPhoto:null });
 
     SetFormInfo({ type: "ConfirmPassword", value: "" });

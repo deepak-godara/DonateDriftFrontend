@@ -11,7 +11,6 @@ export async function GetFundRaiserData(id:any): Promise<UserData> {
   const Url = urlFunctions.GetFundraiserdata(id);
   const res = await API.sendGetRequest(Url);
   if (res.success) {
-    console.log(res.data)
     const MappedData = await GetFundraisersMapped(res.data);
     return { success: true, data: MappedData };
   }

@@ -2,22 +2,30 @@ import React, { useContext } from 'react'
 import styled from 'styled-components'
 import { useCombobox } from "downshift";
 import UserContext from '../../Store/AuthUser';
+import logo from "../../assests/logo4.png";
+
 import { ItemArray } from '../../User/UserItem';
 import LogOut from './LogOut';
 import { Link } from 'react-router-dom';
 const MainContainer=styled.div`
 width:100%;
-margin:0rem auto;
-height:4rem;
+margin:0.5rem auto;
+margin-bottom:0rem;
+height:3.5rem;
+background:transparent;
+// box-shadow: /0 10px 30px rgba(0, 0, 0, 0.08);
 display:flex;
+position:relative;
+z-index:250;
 flex-direction:row;
 align-items:center;
 justify-content:space-between;
 
 `
-const Container1=styled.div`
+const Container1=styled.img`
 width:15%;
 height:100%;
+padding-right:1.5rem;
 // text-algin:center;
 position:relative;
 
@@ -38,7 +46,7 @@ top:2rem;
 padding-left:3rem;
 `
 const Container2=styled.div`
-width:85%;
+width:82%;
 // max-width:40rem;
 height:100%;
 display:flex;
@@ -58,7 +66,7 @@ column-gap:1.5rem
 `
 const Sub1Element=styled.div`
 font-weight: 700;
-font-size: 14px;
+font-size: 17px;
 line-height: 1.5;
 color: #798798;
 `
@@ -74,7 +82,7 @@ column-gap:1.5rem
 const Sub2Element=styled.div`
 color:#4a90e2;
 font-weight: 700;
-font-size: 14px;
+font-size: 17px;
 border-right: 1px solid #f5f6f7;;
 padding-right:1.5rem;
 `
@@ -96,9 +104,9 @@ border-radius:50%;
 const DropDownContainer=styled.button`
 color: #798798;
 font-weight: 700;
-background:white;
+background:transparent;
 border:none; g
-font-size: 14px;
+font-size: 17px;
 `
 const DropDown = styled.ul`
   position: absolute;
@@ -134,8 +142,9 @@ const DropDown = styled.ul`
 `;
 // const ItemDiv=styled.
 const ListItem = styled.li`
-  font-size: 16px;
+  font-size: 17px;
   line-height: 1.5;
+  cursor:pointer;
   padding: 0.2rem 0.2rem;
   color: #2f435a;
   display:flex;
@@ -153,7 +162,7 @@ padding-right:0.5rem;
 `
 const ItemContent=styled.div`
 font-weight: 700;
-    font-size: 14px;
+    font-size: 17px;
     line-height: 150%;
     color: #2f435a;
 `
@@ -172,9 +181,7 @@ function Main() {
       const usercontext=useContext(UserContext);
   return (
     <MainContainer>
-        <Container1>
-            <Cont1Sub1>Donate</Cont1Sub1>
-            <Cont1Sub2>Drift</Cont1Sub2>
+        <Container1 src={logo}>
         </Container1>
         <Container2>
             <SubContainer1>

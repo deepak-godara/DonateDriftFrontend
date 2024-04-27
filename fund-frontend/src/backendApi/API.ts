@@ -31,7 +31,6 @@ export const API = {
       },
       body:data,
     });
-    console.log(res1)
     if (res1.ok) {
       // const res= await res1.json();
       const data = await res1.json();
@@ -53,7 +52,7 @@ export const API = {
     }
     const token = Cookies.get("token");
     let res;
-    if(token)
+    if(token&&auth)
     { res = await fetch(url, {
       method: "POST",
       headers: {
@@ -89,7 +88,7 @@ export const API = {
     const token = Cookies.get("token");
     let res;
     // console.log(token)
-    if(token)
+    if(token&&auth)
     { res = await fetch(url, {
       method: "GET",
       headers: {
@@ -108,7 +107,6 @@ export const API = {
   }
     if (res.ok) {
       const data = await res.json();
-      console.log(data)
       return { success: true, data: data };
     } else {
       return { success: false, data: "Could not Get" };

@@ -222,6 +222,11 @@ function FormCantainer2(props:proptypes) {
     FormInformationReducer,
     ReducerTypes as Types
   );
+  useEffect(()=>{
+    window.scrollTo({
+  top: 0,
+  // behavior: // Optional: Smooth scrolling animation
+});},[])
   const [Count,SetCount]=useState<number>(0);
   const handleAddImageClick = () => {
     if (photoref.current) photoref.current.click();

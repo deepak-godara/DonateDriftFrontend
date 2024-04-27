@@ -38,6 +38,7 @@ const MovContainer = styled.div<InputWidth>`
   position: absolute;
   margin-left: 1.55rem;
   flex-direction: row;
+  z-index:100;
   padding: 0rem 0rem 1.5rem 0rem;
   justify-content: space-between;
   column-gap: 1.7rem;
@@ -81,10 +82,10 @@ function SuccessFull() {
   useEffect(() => {
     async function getfundraisers() {
       console.log("hii")
-      const data = await FilteredFundRaisers(Categorys, "null", "null", 10, 0);
+      const data = await FilteredFundRaisers(Categorys, "null", "null", 6, 0);
       if (data.success && data.data) {
         SetFundraisers(data.data);
-        SetShifts(data.data.length - 2);
+        SetShifts(data.data.length - 3);
       }
     }
     getfundraisers();
@@ -92,7 +93,7 @@ function SuccessFull() {
   const ChangeCategory = async (CatgeoryItem: string) => {
     SetCategory(CatgeoryItem);
     SetTrans(0);
-    const data = await FilteredFundRaisers(CatgeoryItem, "null", "null", 10, 0);
+    const data = await FilteredFundRaisers(CatgeoryItem, "null", "null", 6, 0);
     if (data.success && data.data) {
       SetFundraisers(data.data);
       SetShifts(data.data.length - 2);
@@ -136,7 +137,7 @@ function SuccessFull() {
         <MovContainer $width={Shifts} $trans={trans}>
           {Fundrasiers.length > 0 &&
             Fundrasiers.map((item, index) => (
-              <DonationCard Data={item}></DonationCard>
+              <DonationCard Data={item} ></DonationCard>
             ))}
         </MovContainer>
       </MainContainer>

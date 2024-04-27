@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import styled from 'styled-components'
 import Discover from"../../assests/Discover.jpg"
 import Create from"../../assests/Create.jpg"
 import Cookies from 'js-cookie'
+import UserContext from '../../Store/AuthUser'
 import { useNavigate } from 'react-router-dom'
 const MainContainer=styled.div`
 width: 100%;
@@ -45,6 +46,7 @@ padding:0.7rem 3rem;
 `
 function SpecialButtons() {
   const token=Cookies.get("token")
+  const User=useContext(UserContext)
   const Navigate=useNavigate();
   const StartFundRaiserFunc=()=>{
        if(token)
@@ -52,10 +54,13 @@ function SpecialButtons() {
           Navigate("/fundraise");
        }
   }
+  const DonateFund=()=>{
+    Navigate("/discover")
+  }
   return (
    <MainContainer>
-    <ButtonContainer $image={Discover} onClick={StartFundRaiserFunc}><ClickContainer>Fund Someone</ClickContainer></ButtonContainer>
-    <ButtonContainer $image={Create}><ClickContainer>Start Fundraising</ClickContainer></ButtonContainer>
+    <ButtonContainer $image={Discover} onClick={DonateFund}><ClickContainer>Fund Someone</ClickContainer></ButtonContainer>
+    <ButtonContainer $image={Create} onClick={()=>{if(User.isAuth&&User.UserRole=="USER")StartFundRaiserFunc}}><ClickContainer>Start Fundraising</ClickContainer></ButtonContainer>
    </MainContainer>
   )
 }

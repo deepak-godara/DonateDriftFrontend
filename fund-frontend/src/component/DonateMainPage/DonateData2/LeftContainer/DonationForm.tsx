@@ -129,7 +129,11 @@ const LastContainer = styled.div`
   line-height: 170%;
 `;
 interface proptypes{
-  Id:number
+  Id:number,
+  Amount:number,
+  RequiredAmount:number,
+  NoDonors:number,
+  path?:string,
 }
 function DonationForm(props:proptypes) {
   return (
@@ -137,15 +141,15 @@ function DonationForm(props:proptypes) {
     <MainContainer >
       <Link to={`/fundraiser/${props.Id}/donate`} style={{textDecoration:"none"}}>
       <Secondcontainer>
-        <RaisedAmount>$300</RaisedAmount>
-        <TotalAount> raised of $800 goal</TotalAount>
+        <RaisedAmount>${props.Amount}</RaisedAmount>
+        <TotalAount> raised of ${props.RequiredAmount} goal</TotalAount>
         <MainDiv>
           <Line>
-            <Line2 $width={60} />
+            <Line2 $width={(props.Amount/props.RequiredAmount)*100} />
           </Line>
           <Stats>
-            <Data2>45% funded</Data2>
-            <Data1>76 donors</Data1>
+            <Data2>{((props.Amount/props.RequiredAmount)*100).toFixed(3)}% funded</Data2>
+            <Data1>{props.NoDonors} donors</Data1>
           </Stats>
         </MainDiv>
         <DonateButton>Donate Now</DonateButton>

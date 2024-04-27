@@ -3,7 +3,8 @@ import styled from "styled-components";
 import { BenefitArray } from "./BenefitsArray";
 const MainContainer = styled.div`
   width: 100%;
-  margin: 2rem auto;
+  margin:25rem auto;
+  margin-bottom:2rem;
   display: flex;
   flex-direction: row;
   align-items: center;

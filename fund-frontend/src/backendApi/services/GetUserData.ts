@@ -22,7 +22,6 @@ export async function GetUserData(
 
   if (res.success) {
     const data = await GetUserDataMapped(res.data);
-    console.log(data)
     return { success: true, data: data };
   }
   return { success: true };

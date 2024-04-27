@@ -1,7 +1,8 @@
-import React, { useContext, useReducer } from 'react';
+import React, { useContext, useReducer,useState,useEffect } from 'react';
 import Styled, { styled } from 'styled-components';
 import DonateFormInput from './input';
 import { useNavigate } from 'react-router-dom';
+import Loader from "react-js-loader";
 import { useParams } from 'react-router-dom';
 import UserContext from '../../Store/AuthUser';
 import { MakePayments } from '../../backendApi/services/MakePayment';
@@ -60,6 +61,7 @@ const InitialLabel = Styled.div`
 
 const SubmitContainer = styled.button`
     margin-top : 4rem;
+    position:relative;
     background-color : #53ca8b;
     width : 100%;
     height: 60px;
@@ -113,7 +115,12 @@ const DataTitle3 = styled.div`
     font-weight: 400;
     font-size: 13px;
 `
-
+const LoaderDiv=styled.div`
+position:absolute;
+// margin:0rem auto;
+left: calc( 37% );
+top:0.4rem;
+`
 
 
 const ReducerTypes = {
@@ -155,6 +162,12 @@ function DonateForm(){
         FormInformationReducer,
         ReducerTypes as Types1
     );
+    useEffect(()=>{
+        window.scrollTo({
+      top: 0,
+      // behavior: // Optional: Smooth scrolling animation
+    });},[])
+    const [Loading,SetLoading]=useState(false);
 const MakePayment=async()=>{
     let count=0;
     if(FormInfo.DonateValue.content=="0"||FormInfo.DonateValue.content==="")
@@ -179,6 +192,7 @@ const MakePayment=async()=>{
                 }
                 if(Param.id)
                     {    
+                        SetLoading(true);
                     const res=await  MakePayments(Param.id,Data);
                     if(res.success)
                         {
@@ -227,9 +241,23 @@ const MakePayment=async()=>{
                     </MainSection>
 
                     <SubmitContainer onClick={MakePayment}>
-                        Continue
+                    {Loading && (
+                <LoaderDiv>
+              <Loader
+                type="spinner-cub"
+                color="black"
+                style={{ position:"absolute", top:"2.9rem"}}
+               
+                // top="2.9rem"
+                bgColor="white"
+                // title={"spinner-cub"}
+                size={50}
+              ></Loader>
+              </LoaderDiv>
+            )}
+          {!Loading&&<div>Continue</div>}
                     </SubmitContainer>
-                    <Dscrip>By continuing you are agreeing to GoGetFunding's terms and privacy policy.</Dscrip>
+                    <Dscrip>By continuing you are agreeing to DonaetDrift's terms and privacy policy.</Dscrip>
                 </FormContainer>
                 <FormContainerSide>
                     <BhikhariData>

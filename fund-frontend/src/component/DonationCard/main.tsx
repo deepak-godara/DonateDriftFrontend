@@ -5,10 +5,14 @@ import { YourComponent } from "../DonateMainPage/DonateData2/LeftContainer/Story
 const PostContainer = styled.div`
   width: 285px;
   display: flex;
+  position: relative;
+  z-index:400;
+  cursor:pointer;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
   flex-direction: column;
   border-radius: 16px;
   border: none;
+ 
 `;
 const ImageContainer = styled.img`
   width: 100%;
@@ -20,6 +24,32 @@ const DataContainer = styled.div`
   box-sizing: border-box;
   padding: 16px 20px;
 `;
+interface donationprops{
+  $lefts:string;
+}
+const DonationContainer=styled.div<donationprops>`
+position:absolute;
+width:11rem;
+height:6rem;
+z-index:800;
+top:-3.5rem;
+display:none;
+background:white;
+text-align:center;
+padding:1rem 0.5rem;
+line-height:1.5;
+box-sizing:border-box;
+color: #798798;
+font-size:25px;
+${PostContainer}:hover &{
+  display:block;
+
+}
+left:${(props)=>`${props.$lefts}`};
+border-radius:12px;
+box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+
+`
 const NameContainer = styled.div`
   display: flex;
   justify-content: space-between;
@@ -98,7 +128,10 @@ export interface ProptypesDonationCard {
     Percentage: number;
     NumberofDonors: number;
     MainCover: string;
-  };
+    Donation?:number;
+    index?:number;
+  },
+  
 }
 export interface RequiredFormat {
   id: number;
@@ -118,6 +151,8 @@ function PostCard(props: ProptypesDonationCard) {
   };
   return (
     <PostContainer onClick={GotoFundraiser}>
+      {props.Data.Donation&&props.Data.index!=undefined&&
+      <DonationContainer $lefts={props.Data.index%3==2?"-15px":"140px"}> You have Donated ${props.Data.Donation}</DonationContainer>}
       <ImageContainer src={props.Data.MainCover}></ImageContainer>
       <DataContainer>
         <NameContainer>
@@ -130,7 +165,7 @@ function PostCard(props: ProptypesDonationCard) {
         </ThirdData>
         <LastData>
           <AmountDiv>{props.Data.Amount} raised</AmountDiv>
-          <PercentageDiv>{props.Data.Percentage}%funded</PercentageDiv>
+          <PercentageDiv>{props.Data.Percentage.toFixed(3)}%funded</PercentageDiv>
         </LastData>
       </DataContainer>
     </PostContainer>

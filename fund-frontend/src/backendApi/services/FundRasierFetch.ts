@@ -7,14 +7,14 @@ interface UserData {
   success: boolean;
   data?: RequiredFormat[];
 }
-export async function FetchFundRaisers(
-): Promise<UserData> {
-  const Url = urlFunctions.GetFundraisers();
-  const res = await API.sendGetRequest(Url,
-   );
-  if (res.success) {
-     const MappedData=await GetFundraisersMapped(res.data)
-    return { success: true, data:MappedData};
-  }
-  return { success: false };
-}
+// export async function FetchFundRaisers(
+// ): Promise<UserData> {
+//   const Url = urlFunctions.GetFundraisers();
+//   const res = await API.sendGetRequest(Url,
+//    );
+//   if (res.success) {
+//      const MappedData=await GetFundraisersMapped(res.data)
+//     return { success: true, data:MappedData};
+//   }
+//   return { success: false };
+// }

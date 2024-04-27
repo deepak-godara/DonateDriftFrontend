@@ -26,6 +26,7 @@ export async function GetFundraisersMapped(
     }),
     FundRaiserStory: Data.description,
     Amount: Data.raisedAmount,
+    RequiredAmount:Data.requiredAmount,
     Percentage: Data.raisedAmount / Data.requiredAmount,
   };
 }

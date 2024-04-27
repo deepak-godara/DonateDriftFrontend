@@ -3,7 +3,6 @@ export async function GetFundraisersMapped(
   Data: any
 ): Promise<RequiredFormat[]> {
   if (Data === undefined || Data === null) return [];
-  console.log(Data)
   return Data.map((item: any, index: number) => {
     return {
       Category: item.category,
@@ -14,7 +13,7 @@ export async function GetFundraisersMapped(
       NumberofDonors: item.donors.length,
       Story: item.description,
       Amount: item.raisedAmount,
-      Percentage: item.raisedAmount / item.requiredAmount,
+      Percentage: item.raisedAmount / item.requiredAmount*100,
     };
   });
 }

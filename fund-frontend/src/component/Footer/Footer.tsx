@@ -28,6 +28,9 @@ const HelpContiner = styled.div`
     flex-direction: row;
     justify-content: space-between;
     width: 100%;
+    box-sizing: border-box;
+    padding:2rem 2rem;
+    background-color: #a0d0ef2e;
 `
 
 const InnerValues = styled.div`
@@ -61,10 +64,10 @@ const Footer = () =>{
                     <h1>Donate Drift</h1>
                     <EndLine>Donate Drift is your platform for compassionate crowdfunding. Whether it's for personal causes, events, or ambitious projects, we're here to support you. Our mission is to empower individuals worldwide to make a difference by raising funds online.</EndLine>
                     <EndLine2>Donate Drift</EndLine2>
-                    <EndLine2>123 Charity Lane,</EndLine2>
-                    <EndLine2>Communityville, CD1 4XY,</EndLine2>
-                    <EndLine2>United Kingdom.</EndLine2>
-                    <EndLine2>Registered company: 07005084"</EndLine2>
+                    <EndLine2>IIT Campus,Dharwad,</EndLine2>
+                    <EndLine2>Itigatti road,near Sattur colony</EndLine2>
+                    <EndLine2>Karnatak, India.</EndLine2>
+                    <EndLine2>Registered company: xxxxxxx"</EndLine2>
                 </div>
             </InnerValues>
 
@@ -74,14 +77,10 @@ const Footer = () =>{
                 <StyledLink href="#">About Us</StyledLink>
                 <StyledLink href="#">About Us</StyledLink>
                 <StyledLink href="#">About Us</StyledLink>
-                <StyledLink href="#">About Us</StyledLink>
-                <StyledLink href="#">About Us</StyledLink>
             </InnerValues2>
 
             <InnerValues2>
                 <EndLine3>Project</EndLine3>
-                <StyledLink href="#">About Us</StyledLink>
-                <StyledLink href="#">About Us</StyledLink>
                 <StyledLink href="#">About Us</StyledLink>
                 <StyledLink href="#">About Us</StyledLink>
                 <StyledLink href="#">About Us</StyledLink>
@@ -91,8 +90,6 @@ const Footer = () =>{
 
             <InnerValues2>
                 <EndLine3>Project</EndLine3>
-                <StyledLink href="#">About Us</StyledLink>
-                <StyledLink href="#">About Us</StyledLink>
                 <StyledLink href="#">About Us</StyledLink>
                 <StyledLink href="#">About Us</StyledLink>
                 <StyledLink href="#">About Us</StyledLink>

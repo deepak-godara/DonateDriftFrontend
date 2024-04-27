@@ -1,6 +1,7 @@
-import React, { FormEvent, ReducerState, useReducer } from "react";
+import React, { FormEvent, ReducerState, useReducer ,useState} from "react";
 import styled from "styled-components";
 import { RxCross2 } from "react-icons/rx";
+import Loader from "react-js-loader";
 import { SignUps } from "../../../backendApi/services/SignUp";
 const Container = styled.div`
   height: 100vh;
@@ -91,9 +92,21 @@ margin-top:1rem;
 border-top:1px solid grey;
 padding-top:0.5rem;
 text-align:center;
+display:flex;
+flex-direction:row;
+align-items:center;
+width:100%;
+justify-content:center;
 color:#2f435a;
+cursor:pointer;
 font-weight:700;
 font-size:18px;
+`
+const LoaderDiv=styled.div`
+position:absolute;
+// margin:0rem auto;
+left: calc( 37% );
+top:0.4rem;
 `
 const ReducerTypes = {
   Name: "",
@@ -122,8 +135,10 @@ interface propstypes{
 }
 function SignUp(props:propstypes) {
   const [SignUp, SetSignUp] = useReducer(SignUpReducer, ReducerTypes as Types);
+  const [Loading,SetLoading]=useState<boolean>(false);
   const OnSubmit=async (event:FormEvent)=>{
     event.preventDefault();
+    SetLoading(true);
     const res=await SignUps(SignUp.Name,SignUp.Email,SignUp.Password)
     if(res.success)
       window.location.reload()
@@ -168,8 +183,26 @@ function SignUp(props:propstypes) {
             }}
           ></InputContainer>
         </DataContainer>
-        <SubmitButton type="submit">Sign In</SubmitButton>
-        <ChangeContianer onClick={props.ChangeDiv}>Have an account? Login</ChangeContianer>
+        <SubmitButton type="submit">
+        {Loading && (
+                <LoaderDiv>
+              <Loader
+                type="spinner-cub"
+                color="white"
+                style={{ position:"absolute", top:"2.9rem"}}
+               
+                // top="2.9rem"
+                bgColor="white"
+                // title={"spinner-cub"}
+                size={50}
+              ></Loader>
+              </LoaderDiv>
+            )}
+          {!Loading&&<div>Sign Up</div>}</SubmitButton>
+        <ChangeContianer onClick={props.ChangeDiv}>
+          <div>Have an account?</div><div style={{color:"grey"}}> Login</div>
+
+          </ChangeContianer>
       </MainContainer>
     </Container>
   );

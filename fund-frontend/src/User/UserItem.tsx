@@ -16,7 +16,7 @@ export  const ItemArray=[
     {
         Icon:RiRefund2Line,
         Content:"Funded campaigns",
-        Link:"/profile"
+        Link:"/donation"
     },
     {
         Icon:IoSettingsOutline,

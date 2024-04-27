@@ -1,4 +1,4 @@
-import React, { useReducer } from "react";
+import React, { useEffect, useReducer } from "react";
 import styled from "styled-components";
 import Select from "../../../../FunctionalCompos/Select";
 import Forminput from "../../../../FunctionalCompos/input";
@@ -146,6 +146,11 @@ function Main(props:proptypes) {
     FormInformationReducer,
     ReducerTypes as Types1
   );
+  useEffect(()=>{
+      window.scrollTo({
+    top: 0,
+    // behavior: // Optional: Smooth scrolling animation
+  });},[])
   const SubmitFunc = () => {
     let count = 0;
     if (FormInfo.category.content.length === 0) {

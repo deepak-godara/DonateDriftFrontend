@@ -5,7 +5,6 @@ export async function GetUserDataMapped(
   Data: any
 ): Promise<InitialUserType> {
   const Datas=await GetFundraisersMapped(Data.fundraiser);
-  console.log(Data)
   return {
     isAuth: true,
     UserRole:Data.userRole,

@@ -72,7 +72,7 @@ function AdminOperation(props:proptypes) {
     <MainContainer>
         <Heading>Take your action on Fundraiser</Heading>
       <Button1 $color="#4a90e2"  onClick={()=>SubmitFunction(1)}>Accept</Button1>
-      <Button1 $color="rgb(121, 135, 152)" onClick={()=>SubmitFunction(0)}>Reject</Button1>
+      <Button1 $color="rgb(121, 135, 152)" onClick={()=>SubmitFunction(-1)}>Reject</Button1>
     </MainContainer>
   );
 }

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import styled from "styled-components";
 import { BiCheck } from "react-icons/bi";
 import Button from "../../../../FunctionalCompos/Button";
@@ -59,6 +59,11 @@ function Account(props:proptypes){
     const [Amount,SetAmount]=useState<number>(0);
     const [Under,SetUnder]=useState<boolean>(false);
     const [Valoid,SetValid]=useState<boolean>(false);
+    useEffect(()=>{
+        window.scrollTo({
+      top: 0,
+      // behavior: // Optional: Smooth scrolling animation
+    });},[])
     const SubmitFunc=()=>{
         let count=0;
         if(UPIID==="")

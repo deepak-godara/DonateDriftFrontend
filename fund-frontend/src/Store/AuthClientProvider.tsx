@@ -6,6 +6,10 @@ import { GetUserData } from "../backendApi/services/GetUserData";
 import UserFundrasiers from "../component/UserFundrasiers";
 import LogOut from "../component/NavBarComponent/LogOut";
 // import { VerifyUser } from "../backendApi/services/VerifyUser";
+interface UserDonation{
+  Fundrasierid:string,
+  Amount:number
+}
 const InitialState = {
   isAuth: false,
   UserId:null,
@@ -111,7 +115,6 @@ function AuthUserProvider(props: any) {
         
         setTimeout(() => {
           SetLoading(true);
-          console.log(UserData)
         }, 200);
       }
     }

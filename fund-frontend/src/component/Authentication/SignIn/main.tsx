@@ -1,6 +1,7 @@
-import React, { FormEvent, useReducer } from "react";
+import React, { FormEvent, useReducer, useState } from "react";
 import styled from "styled-components";
 import { RxCross2 } from "react-icons/rx";
+import Loader from "react-js-loader";
 import { SignInwithPassword } from "../../../backendApi/services/SignInApi";
 // import { Sign } from "crypto";
 import { useNavigate } from "react-router-dom";
@@ -92,11 +93,49 @@ const ChangeContianer=styled.div`
 margin-top:1rem;
 border-top:1px solid grey;
 padding-top:1rem;
+display:flex;
+flex-direction:row;
+justify-content:center;
 text-align:center;
 color:#2f435a;
+cursor:pointer;
 font-weight:700;
 font-size:18px;
 `
+const LoaderDiv=styled.div`
+position:absolute;
+// margin:0rem auto;
+left: calc( 37% );
+top:0.4rem;
+`
+const HoverDiv=styled.div`
+display:none;
+`
+
+const DonationDiv=styled.div`
+position:absolute;
+
+`
+const MainDiv = styled.div`
+  width: 200px;
+  height: 200px;
+  background-color: lightblue;
+`;
+
+const OtherDiv = styled.div`
+  width: 100px;
+  height: 100px;
+  background-color: lightgreen;
+  display: none; /* Initially hide the div */
+  position: absolute;
+  top: 0;
+  left: 100%;
+  ${Container}:hover & {
+    display: block;
+  }
+`;
+
+
 const ReducerTypes = {
   Email: "",
   Password: "",
@@ -121,8 +160,10 @@ interface propstypes{
 }
 function SignIn(props:propstypes) {
   const [SignIn, SetSignIn] = useReducer(SignInReducer, ReducerTypes as Types);
+  const [Loading,SetLoading]=useState<boolean>(false);
   const Navgiate=useNavigate();
    const  onSubmit= async( e:FormEvent)=>{
+    SetLoading(true);
       e.preventDefault();
      const res=await SignInwithPassword(SignIn.Email,SignIn.Password);
 
@@ -161,8 +202,23 @@ function SignIn(props:propstypes) {
           ></InputContainer>
         </DataContainer>
         <ForgetContainer>Forget your password?</ForgetContainer>
-        <SubmitButton type="submit">Sign In</SubmitButton>
-        <ChangeContianer onClick={props.ChangeDiv}>Don't have an account? Sign Up</ChangeContianer>
+        <SubmitButton type="submit">
+        {Loading && (
+                <LoaderDiv>
+              <Loader
+                type="spinner-cub"
+                color="white"
+                style={{ position:"absolute", top:"2.9rem"}}
+               
+                // top="2.9rem"
+                bgColor="white"
+                // title={"spinner-cub"}
+                size={50}
+              ></Loader>
+              </LoaderDiv>
+            )}
+          {!Loading&&<div>Sign In</div>}</SubmitButton>
+        <ChangeContianer onClick={props.ChangeDiv}>Don't have an account? <div style={{color:"grey"}}>Signup</div></ChangeContianer>
       </MainContainer>
     </Container>
   );

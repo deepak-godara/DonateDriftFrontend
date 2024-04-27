@@ -25,7 +25,7 @@ const MovContainer = styled.div<InputWidth>`
   flex-wrap : wrap;
   row-gap:2rem;
   padding: 0rem 0rem 1.5rem 0rem;
-  justify-content: space-between;
+  justify-content: center;
   column-gap: 1.7rem;
   transition: ${(props) => `${props.$trans}s`};
 `;
@@ -88,8 +88,8 @@ const FirstContainer = styled.div`
 `
 
 const ReducerTypes = {
-    FType1: { content: "", valid: true },
-    FType2: { content: "", valid: true }
+    FType1: { content: "Category", valid: true },
+    FType2: { content: "Education", valid: true }
 }
 
 const SubmitButton = styled.div`
@@ -134,6 +134,7 @@ width: 55%;
   border-color: #4a90e2;
   cursor: pointer;
   transition: 0.4s;
+//   behavior: fa
   padding: 1rem 0rem;
   &:hover {
     background: #1758a5;
@@ -186,7 +187,15 @@ const DiscoverPage = () => {
     const [CType, CtypeFn] = useState<Array<string>>(
         SelectCountry
     )
+    useEffect(()=>{
+        window.scrollTo({
+            top: 0,
+            // behavior: // Optional: Smooth scrolling animation
+          });
+    },[])
     useEffect(() => {
+       
+          
         async function Checks()
         {
             if(CurrentType!==FormInfo.FType1.content||CuurentVal!==FormInfo.FType2.content){
@@ -226,7 +235,7 @@ const DiscoverPage = () => {
                   });
                   
                   
-                Url = `http://localhost:8080/api/fundraisers?${params.toString()}`;
+                Url = `http://localhost:8080/api/fundraisers?catgeory=Education&${params.toString()}`;
                 const res = await API.sendGetRequest(Url)
                 if (res.success) {
                     const MappedData = await GetFundraisersMapped(res.data.content)

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { PrimaryItems, SecondaryItems } from './Items';
 import { Link } from 'react-router-dom';
 import './navbar.css';
+import phots4 from "../../assests/logo4.png"
 import ModalPortal from '../../ModalPortal';
 // import  Authentication
 import Authentication from '../Authentication';
@@ -11,7 +12,7 @@ function Navbar() {
   return (
     <nav className="NavbarItems">
         <div className="InternalNavbarItems">
-        <h1 className="NavbarLogo">DonateDrift</h1>
+        <img className="NavBarLogo" src={phots4}/>
         
             <div className="NavbarValues">
                 <div className="NavbarValuesP1">
@@ -34,15 +35,15 @@ function Navbar() {
                         return (
                             <li key={index}>
                             <Link className={item.cName} to={item.url}>
-                                <i>{item.icon&&<item.icon/>}</i>
+                                <i style={{display:"flex", alignItems:"center"}}>{item.icon&&<item.icon/>}</i>
                                 {item.title}
                             </Link>
                             </li>
                         );
                         })}
 
-                            <button onClick={()=>{SetSignUp(true);
-                             console.log("ij")}}>Sign Up</button>
+                            <button  onClick={()=>{SetSignUp(true);
+                             console.log("ij")}} style={{background:"none" ,padding:"0rem 1.5rem",fontSize:"17px"} }>Sign Up</button>
                     </ul>
                 </div>
             </div>
